@@ -1,0 +1,23 @@
+﻿
+@model Project.Web.Models.ProjectIndexViewModel
+@{
+    ViewData["Title"] = "Index";
+    Layout = "~/Views/Shared/_Layout.cshtml";
+}
+
+<h1>Projects</h1>
+
+@foreach (var project in Model.ProjectViewModels)
+{
+   
+ 
+
+    <div class="card" style="width: 18rem;">
+        @*<img class="card-img-top" src="..." alt="Card image cap">*@
+        <div class="card-body">
+            <h5 class="card-title"> @project.Name</h5>
+            <p class="card-text">@project.Description</p>
+            <a href="#" class="btn btn-primary">See Tasks</a>
+        </div>
+    </div>
+}
