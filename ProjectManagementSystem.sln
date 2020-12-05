@@ -3,13 +3,18 @@ Microsoft Visual Studio Solution File, Format Version 12.00
 # Visual Studio Version 16
 VisualStudioVersion = 16.0.30611.23
 MinimumVisualStudioVersion = 10.0.40219.1
-Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "Project.Domain", "Project.Core\Project.Domain.csproj", "{E910034E-FB9E-4394-8C47-0C0C9E6BA924}"
+Project("{9A19103F-16F7-4668-BE54-9A1E7A4F7556}") = "Project.Domain", "Project.Core\Project.Domain.csproj", "{E910034E-FB9E-4394-8C47-0C0C9E6BA924}"
 EndProject
-Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "Project.Infrastructure", "Project.Infrastructure\Project.Infrastructure.csproj", "{4CC6516C-99A9-4D0A-8F19-941A95718614}"
+Project("{9A19103F-16F7-4668-BE54-9A1E7A4F7556}") = "Project.Infrastructure", "Project.Infrastructure\Project.Infrastructure.csproj", "{4CC6516C-99A9-4D0A-8F19-941A95718614}"
 EndProject
-Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "Project.Web", "Project.Web\Project.Web.csproj", "{C8786A76-7BA6-4934-83DA-B30FA154B0BF}"
+Project("{9A19103F-16F7-4668-BE54-9A1E7A4F7556}") = "Project.Web", "Project.Web\Project.Web.csproj", "{C8786A76-7BA6-4934-83DA-B30FA154B0BF}"
 EndProject
-Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "Project.Application", "Project.Application\Project.Application.csproj", "{3BE6AE8B-642F-4430-B9ED-4CAC623030DF}"
+Project("{9A19103F-16F7-4668-BE54-9A1E7A4F7556}") = "Project.Application", "Project.Application\Project.Application.csproj", "{3BE6AE8B-642F-4430-B9ED-4CAC623030DF}"
+EndProject
+Project("{2150E333-8FDC-42A3-9474-1A3956D46DE8}") = "Solution Items", "Solution Items", "{6F1BABBB-81A2-4A2D-AE1B-221A97B85338}"
+	ProjectSection(SolutionItems) = preProject
+		.github\workflows\dotnet-core.yml = .github\workflows\dotnet-core.yml
+	EndProjectSection
 EndProject
 Global
 	GlobalSection(SolutionConfigurationPlatforms) = preSolution
