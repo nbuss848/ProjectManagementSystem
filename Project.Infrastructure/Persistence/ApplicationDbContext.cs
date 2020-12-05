@@ -23,6 +23,10 @@ namespace Project.Infrastructure.Persistence
         protected override void OnModelCreating(ModelBuilder modelBuilder)
         {
             modelBuilder.Entity<Domain.Entities.Project>().ToTable("Project");
+            modelBuilder.Entity<Domain.Entities.Status>().ToTable("Status");
+            modelBuilder.Entity<Domain.Entities.Task>().ToTable("Task");
+            modelBuilder.Entity<Domain.Entities.SubTask>().ToTable("SubTask");
+
         }
 
         public Task<int> SaveChangesAsync(CancellationToken cancellationToken)

@@ -20,7 +20,7 @@ namespace Project.Web.Controllers
 
         public IActionResult Index()
         {
-            return View();
+            return RedirectToAction("Index", "Project", null);
         }
 
         public IActionResult Privacy()
