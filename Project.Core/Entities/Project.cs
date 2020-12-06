@@ -17,7 +17,8 @@ namespace Project.Domain.Entities
         public string Name { get; set; }
         public string Description { get; set; }
         public string Classification { get; set; }
-        public PriorityLevel Priority { get; set; }
+        //public PriorityLevel Priority { get; set; }
+        public string Priority { get; set; }
         public int Size { get; set; }
         public DateTime? CreatedDate { get; set; }
         public DateTime? DueDate { get; set; }
