@@ -5,6 +5,7 @@ using System.Threading.Tasks;
 using AutoMapper;
 using Microsoft.AspNetCore.Mvc;
 using Microsoft.AspNetCore.Mvc.Rendering;
+using Microsoft.EntityFrameworkCore;
 using Project.Infrastructure.Persistence;
 using Project.Web.Models;
 
@@ -24,9 +25,12 @@ namespace Project.Web.Controllers
         public IActionResult Index()
         {
             var view = _mapper.ProjectTo<ProjectViewModel>(_context.Projects);
-            var modelview = new ProjectIndexViewModel() { ProjectViewModels = view };
-           
             
+            var modelview = new ProjectIndexViewModel() 
+            { 
+                ProjectViewModels = view                
+            };
+                       
             return View(modelview);
         }
 
@@ -53,7 +57,7 @@ namespace Project.Web.Controllers
                 Description = model.Description,
                 Name = model.Name,
                 Size = model.Size,
-                Priority = model.Priority,
+                Priority = model.Priority.ToString(),
                 Classification = model.Classification,
                 DueDate = model.DueDate,
                 ProjectImage = model.ProjectImage

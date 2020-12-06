@@ -1,0 +1,45 @@
+﻿@model Project.Web.Models.ProjectTasks.ProjectTaskIndexViewModel
+
+@{
+    ViewData["Title"] = "Index";
+    Layout = "~/Views/Shared/_Layout.cshtml";
+}
+
+<h1>Project Tasks</h1>
+
+<div class="row">
+    <div class="col-12">
+        <h2>Project: @Model.Name</h2>
+        <p>@Model.Description</p>
+    </div>
+</div>
+
+<a asp-action="AddNewTask" asp-controller="ProjectTask" asp-route-projectId="@Model.ProjectId"></a>
+
+
+@if (Model.TaskList.Count() == 0)
+{
+    <p>No tasks to show for this project</p>
+}
+else
+{
+<table class="table table-responsive table-striped">
+    <thead>
+        <tr>
+            <th>Name</th>
+            <th>Status</th>
+        </tr>
+    </thead>
+    <tbody>
+        @foreach (var task in Model.TaskList)
+        {
+        <tr>
+            <td>@task.Name</td>
+            <td class="badge-info">@task.Status</td>
+        </tr>
+        }
+    </tbody>
+</table>
+
+}
+

@@ -5,11 +5,14 @@ using System.Threading.Tasks;
 
 namespace Project.Web.Models.ProjectTasks
 {
-    public class ProjectTaskIndexViewModel
+    public class ProjectTaskCreateViewModel
     {
         public int ProjectId { get; set; }
+        public int TaskId { get; set; }
         public string Name { get; set; }
         public string Description { get; set; }
-        public IEnumerable<ProjectTaskListingModel> TaskList { get; set; }
+        public int Size { get; set; }
+        public DateTime? FrequencyStartDate { get; set; }
+        public DateTime? ReminderDate { get; set; }
     }
 }

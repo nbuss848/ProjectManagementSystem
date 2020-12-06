@@ -1,0 +1,61 @@
+﻿@model Project.Web.Models.ProjectTasks.ProjectTaskCreateViewModel
+
+@{
+    ViewData["Title"] = "CreateProjectTask";
+    Layout = "~/Views/Shared/_Layout.cshtml";
+}
+
+<h1>CreateProjectTask</h1>
+
+<h4>ProjectTaskIndexViewModel</h4>
+<hr />
+<div class="row">
+    <div class="col-md-4">
+        <form asp-action="AddNewTask">
+            <div asp-validation-summary="ModelOnly" class="text-danger"></div>
+            <div hidden class="form-group">
+                <label asp-for="ProjectId" class="control-label"></label>
+                <input asp-for="ProjectId" class="form-control" />
+                <span asp-validation-for="ProjectId" class="text-danger"></span>
+            </div>
+            <div class="form-group">
+                <label asp-for="TaskId" class="control-label"></label>
+                <input asp-for="TaskId" class="form-control" />
+                <span asp-validation-for="TaskId" class="text-danger"></span>
+            </div>
+            <div class="form-group">
+                <label asp-for="Name" class="control-label"></label>
+                <input asp-for="Name" class="form-control" />
+                <span asp-validation-for="Name" class="text-danger"></span>
+            </div>
+            <div class="form-group">
+                <label asp-for="Description" class="control-label"></label>
+                <input asp-for="Description" class="form-control" />
+                <span asp-validation-for="Description" class="text-danger"></span>
+            </div>
+            <div class="form-group">
+                <label asp-for="Size" class="control-label"></label>
+                <input asp-for="Size" class="form-control" />
+                <span asp-validation-for="Size" class="text-danger"></span>
+            </div>
+            <div class="form-group">
+                <label asp-for="FrequencyStartDate" class="control-label"></label>
+                <input asp-for="FrequencyStartDate" class="form-control" />
+                <span asp-validation-for="FrequencyStartDate" class="text-danger"></span>
+            </div>
+            <div class="form-group">
+                <label asp-for="ReminderDate" class="control-label"></label>
+                <input asp-for="ReminderDate" class="form-control" />
+                <span asp-validation-for="ReminderDate" class="text-danger"></span>
+            </div>
+            <div class="form-group">
+                <input type="submit" value="Create" class="btn btn-primary" />
+            </div>
+        </form>
+    </div>
+</div>
+
+<div>
+    <a asp-action="Index">Back to List</a>
+</div>
+
