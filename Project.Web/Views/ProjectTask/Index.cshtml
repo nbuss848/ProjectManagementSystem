@@ -5,21 +5,18 @@
     Layout = "~/Views/Shared/_Layout.cshtml";
 }
 
-<h1>Project Tasks</h1>
 
 <div class="row">
     <div class="col-12">
-        <h2>Project: @Model.Name</h2>
+        <h2>@Model.Name</h2>
         <p>@Model.Description</p>
+        <a class="btn" asp-action="AddNewTask" asp-controller="ProjectTask" asp-route-projectId="@Model.ProjectId">Add new task</a>
     </div>
 </div>
 
-<a asp-action="AddNewTask" asp-controller="ProjectTask" asp-route-projectId="@Model.ProjectId"></a>
-
-
 @if (Model.TaskList.Count() == 0)
 {
-    <p>No tasks to show for this project</p>
+    <p class="alert alert-info">No tasks to show for this project</p>
 }
 else
 {
@@ -35,7 +32,7 @@ else
         {
         <tr>
             <td>@task.Name</td>
-            <td class="badge-info">@task.Status</td>
+            <td><span class="badge badge-info">@task.Status</span></td>
         </tr>
         }
     </tbody>
