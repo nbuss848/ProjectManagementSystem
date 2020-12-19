@@ -17,12 +17,14 @@ namespace Project.Application.Common.Projects.Commands.GetProject
 
         public GetProjectByIdResponseModel GetProjectById(GetProjectByIdRequestModel request)
         {
-            var response = _context.Projects.Where(x => x.ProjectId == request.ProjectId).Select(x => new GetProjectByIdResponseModel()
-            {
-                ProjectId = x.ProjectId,
-                Description = x.Description,
-                Name = x.Name
-            }).FirstOrDefault();
+            var response = _context.Projects
+                .Where(x => x.ProjectId == request.ProjectId)
+                .Select(x => new GetProjectByIdResponseModel()
+                {
+                    ProjectId = x.ProjectId,
+                    Description = x.Description,
+                    Name = x.Name
+                }).FirstOrDefault();
 
             return response;
         }

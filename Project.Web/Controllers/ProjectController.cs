@@ -37,10 +37,17 @@ namespace Project.Web.Controllers
             { 
                 ProjectViewModels = view                
             };
-
-            var result = _getProjectByIdQueryHandler.GetProjectById(new Application.Common.Projects.Commands.GetProjectByIdRequestModel() { ProjectId = 1 });
                        
             return View(modelview);
+        }
+
+        public IActionResult ViewProject(int ProjectId)
+        {
+            var result = _getProjectByIdQueryHandler.GetProjectById(new Application.Common.Projects.Commands.GetProjectByIdRequestModel() { ProjectId = ProjectId });
+
+            var viewModel =_mapper.Map<ProjectViewModel>(result);
+
+            return View(viewModel);
         }
 
         public IActionResult Create()
@@ -57,9 +64,10 @@ namespace Project.Web.Controllers
         }
 
         [HttpPost]
-        public async Task<IActionResult> AddProject(CreateProjectRequestModel model)
+        public async Task<IActionResult> AddProject(ProjectCreateModel model)
         {
-            var response = _createProjectQueryHandler.CreateProject(model, new System.Threading.CancellationToken());
+            var map = _mapper.Map<CreateProjectRequestModel>(model);
+            var response = _createProjectQueryHandler.CreateProject(map, new System.Threading.CancellationToken());
 
             return RedirectToAction("Index", "Project");
         }
