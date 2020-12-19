@@ -33,6 +33,7 @@ else
         <tr>
             <td>@task.Name</td>
             <td><span class="badge badge-info">@task.Status</span></td>
+            <td><a asp-controller="Subtask" asp-action="AddSubTask" asp-route-projectId="" asp-route-taskId="@task.TaskId"></a></td>
         </tr>
         }
     </tbody>

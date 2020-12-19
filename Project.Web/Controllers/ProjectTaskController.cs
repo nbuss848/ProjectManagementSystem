@@ -28,6 +28,7 @@ namespace Project.Web.Controllers
                 Description = project.Description,
                 TaskList = project.Tasks.Select(x=> new ProjectTaskListingModel()
                 {
+                    TaskId = x.TaskId,
                     Description = x.Description,
                     Name = x.Name,
                     Status = x.Status.Name
