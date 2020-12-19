@@ -1,8 +1,9 @@
-﻿using System;
+﻿using MediatR;
+using System;
 
 namespace Project.Application.Common.Projects.Commands
 {
-    public class CreateProjectRequestModel
+    public class CreateProjectRequestModel : IRequest<CreateProjectResponseModel>
     {
         public int ProjectId { get; set; }
         public int TaskId { get; set; }

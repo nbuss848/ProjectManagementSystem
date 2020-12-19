@@ -1,12 +1,15 @@
-﻿using Project.Application.Common.Interfaces;
+﻿using MediatR;
+using Project.Application.Common.Interfaces;
 using System;
 using System.Collections.Generic;
 using System.Linq;
 using System.Text;
+using System.Threading;
+using System.Threading.Tasks;
 
 namespace Project.Application.Common.Projects.Commands.GetProject
 {
-    public class GetProjectByIdQueryHandler : IGetProjectByIdQueryHandler
+    public class GetProjectByIdQueryHandler :IRequestHandler<GetProjectByIdRequestModel, GetProjectByIdResponseModel>
     {
         private readonly IApplicationDbContext _context;
 
@@ -15,16 +18,16 @@ namespace Project.Application.Common.Projects.Commands.GetProject
             _context = context;
         }
 
-        public GetProjectByIdResponseModel GetProjectById(GetProjectByIdRequestModel request)
+        public async Task<GetProjectByIdResponseModel> Handle(GetProjectByIdRequestModel request, CancellationToken cancellationToken)
         {
             var response = _context.Projects
-                .Where(x => x.ProjectId == request.ProjectId)
-                .Select(x => new GetProjectByIdResponseModel()
-                {
-                    ProjectId = x.ProjectId,
-                    Description = x.Description,
-                    Name = x.Name
-                }).FirstOrDefault();
+            .Where(x => x.ProjectId == request.ProjectId)
+            .Select(x => new GetProjectByIdResponseModel()
+            {
+                ProjectId = x.ProjectId,
+                Description = x.Description,
+                Name = x.Name
+            }).FirstOrDefault();
 
             return response;
         }

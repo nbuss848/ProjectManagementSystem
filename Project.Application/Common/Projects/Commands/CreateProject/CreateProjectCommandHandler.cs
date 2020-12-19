@@ -1,12 +1,14 @@
-﻿using Project.Application.Common.Interfaces;
+﻿using MediatR;
+using Project.Application.Common.Interfaces;
 using System;
 using System.Collections.Generic;
 using System.Text;
 using System.Threading;
+using System.Threading.Tasks;
 
 namespace Project.Application.Common.Projects.Commands.CreateProject
 {
-    public class CreateProjectCommandHandler : ICreateProjectCommandHandler
+    public class CreateProjectCommandHandler : IRequestHandler<CreateProjectRequestModel, CreateProjectResponseModel>
     {
         private readonly IApplicationDbContext _context;
         public CreateProjectCommandHandler(IApplicationDbContext context)
@@ -14,8 +16,8 @@ namespace Project.Application.Common.Projects.Commands.CreateProject
             _context = context;
         }
 
-        public CreateProjectResponseModel CreateProject(CreateProjectRequestModel request, CancellationToken cancellationToken)
-        {           
+        public async Task<CreateProjectResponseModel> Handle(CreateProjectRequestModel request, CancellationToken cancellationToken)
+        {
             var project = new Project.Domain.Entities.Project()
             {
                 ProjectId = 0,
@@ -37,9 +39,9 @@ namespace Project.Application.Common.Projects.Commands.CreateProject
             };
 
             _context.Projects.Add(project);
-            _context.SaveChangesAsync(cancellationToken).Wait();
+            await _context.SaveChangesAsync(cancellationToken);
 
             return result;
-        }   
+        }
     }
 }

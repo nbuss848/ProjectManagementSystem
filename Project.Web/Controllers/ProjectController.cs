@@ -3,6 +3,7 @@ using System.Collections.Generic;
 using System.Linq;
 using System.Threading.Tasks;
 using AutoMapper;
+using MediatR;
 using Microsoft.AspNetCore.Mvc;
 using Microsoft.AspNetCore.Mvc.Rendering;
 using Microsoft.EntityFrameworkCore;
@@ -17,16 +18,13 @@ namespace Project.Web.Controllers
     {
         private readonly ApplicationDbContext _context;
         private readonly IMapper _mapper;
+        private readonly IMediator _mediator;
 
-        private readonly IGetProjectByIdQueryHandler _getProjectByIdQueryHandler;
-        private readonly ICreateProjectCommandHandler _createProjectQueryHandler;
-
-        public ProjectController(ApplicationDbContext context, IMapper automapper, ICreateProjectCommandHandler createProjectQueryHandler, IGetProjectByIdQueryHandler getProjectByIdQueryHandler)
+        public ProjectController(ApplicationDbContext context, IMapper automapper, IMediator mediator)
         {
             _context = context;
             _mapper = automapper;
-            _createProjectQueryHandler = createProjectQueryHandler;
-            _getProjectByIdQueryHandler = getProjectByIdQueryHandler;
+            _mediator = mediator;
         }
 
         public IActionResult Index()
@@ -42,8 +40,8 @@ namespace Project.Web.Controllers
         }
 
         public IActionResult ViewProject(int ProjectId)
-        {
-            var result = _getProjectByIdQueryHandler.GetProjectById(new Application.Common.Projects.Commands.GetProjectByIdRequestModel() { ProjectId = ProjectId });
+        {            
+            var result = _mediator.Send(new GetProjectByIdRequestModel() { ProjectId = ProjectId });
 
             var viewModel =_mapper.Map<ProjectViewModel>(result);
 
@@ -67,7 +65,8 @@ namespace Project.Web.Controllers
         public async Task<IActionResult> AddProject(ProjectCreateModel model)
         {
             var map = _mapper.Map<CreateProjectRequestModel>(model);
-            var response = _createProjectQueryHandler.CreateProject(map, new System.Threading.CancellationToken());
+            
+            var response = _mediator.Send(map);
 
             return RedirectToAction("Index", "Project");
         }
