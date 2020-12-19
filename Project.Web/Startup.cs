@@ -42,7 +42,9 @@ namespace Project.Web
 
             services.AddScoped<IApplicationDbContext>(provider => provider.GetService<ApplicationDbContext>());
 
-            services.AddMediatR(Assembly.GetExecutingAssembly());
+            var assembly = AppDomain.CurrentDomain.Load("Project.Application");
+
+            services.AddMediatR(assembly);
         }
 
         // This method gets called by the runtime. Use this method to configure the HTTP request pipeline.
@@ -64,8 +66,6 @@ namespace Project.Web
             app.UseRouting();
 
             app.UseAuthorization();
-
-
 
             app.UseEndpoints(endpoints =>
             {
