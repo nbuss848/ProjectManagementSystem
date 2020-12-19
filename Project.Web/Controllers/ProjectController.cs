@@ -77,7 +77,8 @@ namespace Project.Web.Controllers
     {
         public MappingProfile()
         {
-            CreateMap<Domain.Entities.Project, ProjectViewModel>();            
+            CreateMap<Domain.Entities.Project, ProjectViewModel>();        
+            CreateMap<ProjectCreateModel, CreateProjectRequestModel>();
         }
     }
 }
