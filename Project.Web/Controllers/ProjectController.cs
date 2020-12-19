@@ -6,6 +6,8 @@ using AutoMapper;
 using Microsoft.AspNetCore.Mvc;
 using Microsoft.AspNetCore.Mvc.Rendering;
 using Microsoft.EntityFrameworkCore;
+using Project.Application.Common.Interfaces;
+using Project.Application.Common.Projects.Commands;
 using Project.Infrastructure.Persistence;
 using Project.Web.Models;
 
@@ -16,10 +18,15 @@ namespace Project.Web.Controllers
         private readonly ApplicationDbContext _context;
         private readonly IMapper _mapper;
 
-        public ProjectController(ApplicationDbContext context, IMapper automapper)
+        private readonly IGetProjectByIdQueryHandler _getProjectByIdQueryHandler;
+        private readonly ICreateProjectCommandHandler _createProjectQueryHandler;
+
+        public ProjectController(ApplicationDbContext context, IMapper automapper, ICreateProjectCommandHandler createProjectQueryHandler, IGetProjectByIdQueryHandler getProjectByIdQueryHandler)
         {
             _context = context;
             _mapper = automapper;
+            _createProjectQueryHandler = createProjectQueryHandler;
+            _getProjectByIdQueryHandler = getProjectByIdQueryHandler;
         }
 
         public IActionResult Index()
@@ -30,6 +37,8 @@ namespace Project.Web.Controllers
             { 
                 ProjectViewModels = view                
             };
+
+            var result = _getProjectByIdQueryHandler.GetProjectById(new Application.Common.Projects.Commands.GetProjectByIdRequestModel() { ProjectId = 1 });
                        
             return View(modelview);
         }
@@ -48,23 +57,9 @@ namespace Project.Web.Controllers
         }
 
         [HttpPost]
-        public async Task<IActionResult> AddProject(ProjectCreateModel model)
+        public async Task<IActionResult> AddProject(CreateProjectRequestModel model)
         {
-            var project = new Domain.Entities.Project()
-            {
-                ProjectId = 0,
-                CreatedDate = model.CreatedDate,
-                Description = model.Description,
-                Name = model.Name,
-                Size = model.Size,
-                Priority = model.Priority.ToString(),
-                Classification = model.Classification,
-                DueDate = model.DueDate,
-                ProjectImage = model.ProjectImage
-            };
-
-            await _context.AddAsync(project);
-            await _context.SaveChangesAsync();
+            var response = _createProjectQueryHandler.CreateProject(model, new System.Threading.CancellationToken());
 
             return RedirectToAction("Index", "Project");
         }

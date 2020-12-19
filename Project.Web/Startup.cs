@@ -10,6 +10,9 @@ using Microsoft.EntityFrameworkCore;
 using Microsoft.Extensions.Configuration;
 using Microsoft.Extensions.DependencyInjection;
 using Microsoft.Extensions.Hosting;
+using Project.Application.Common.Interfaces;
+using Project.Application.Common.Projects.Commands.CreateProject;
+using Project.Application.Common.Projects.Commands.GetProject;
 using Project.Infrastructure.Persistence;
 
 namespace Project.Web
@@ -29,12 +32,17 @@ namespace Project.Web
             services.AddControllersWithViews();
 
             services.AddAutoMapper(typeof(Startup));
-            
-
+      
             services.AddDbContext<ApplicationDbContext>(opts => {
                 opts.EnableDetailedErrors();
                 opts.UseNpgsql(Configuration.GetConnectionString("Default"));
             });
+
+            services.AddScoped<IApplicationDbContext>(provider => provider.GetService<ApplicationDbContext>());
+
+
+            services.AddScoped<IGetProjectByIdQueryHandler, GetProjectByIdQueryHandler>();
+            services.AddScoped<ICreateProjectCommandHandler, CreateProjectCommandHandler>();
         }
 
         // This method gets called by the runtime. Use this method to configure the HTTP request pipeline.
