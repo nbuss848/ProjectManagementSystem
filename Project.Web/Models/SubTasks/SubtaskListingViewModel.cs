@@ -1,9 +1,9 @@
-﻿namespace Project.Web.Models.ProjectTasks
+﻿namespace Project.Web.Models.SubTasks
 {
-    public class ProjectTaskListingModel
+    public class SubtaskListingViewModel
     {
-        public int ProjectId { get; set; }
         public int TaskId { get; set; }
+        public int SubtaskId { get; set; }
         public string Name { get; set; }
         public string Description { get; set; }
         public string Status { get; set; }

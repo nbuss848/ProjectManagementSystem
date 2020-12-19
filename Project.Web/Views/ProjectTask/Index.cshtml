@@ -10,33 +10,42 @@
     <div class="col-12">
         <h2>@Model.Name</h2>
         <p>@Model.Description</p>
-        <a class="btn" asp-action="AddNewTask" asp-controller="ProjectTask" asp-route-projectId="@Model.ProjectId">Add new task</a>
+        <a class="btn btn-secondary" asp-action="AddTask" asp-controller="ProjectTask" asp-route-projectId="@Model.ProjectId">
+            Add new task
+        </a>
+        <br />
+        <br />
     </div>
 </div>
 
-@if (Model.TaskList.Count() == 0)
-{
-    <p class="alert alert-info">No tasks to show for this project</p>
-}
-else
-{
-<table class="table table-responsive table-striped">
-    <thead>
-        <tr>
-            <th>Name</th>
-            <th>Status</th>
-        </tr>
-    </thead>
-    <tbody>
-        @foreach (var task in Model.TaskList)
+<div class="row">
+    <div class="col-12">
+        @if (Model.TaskList.Count() == 0)
         {
-        <tr>
-            <td>@task.Name</td>
-            <td><span class="badge badge-info">@task.Status</span></td>
-        </tr>
+            <p class="alert alert-info">No tasks to show for this project</p>
         }
-    </tbody>
-</table>
-
-}
-
+        else
+        {
+            <table class="table table-responsive table-striped">
+                <thead>
+                    <tr>
+                        <th>Name</th>
+                        <th></th>
+                    </tr>
+                </thead>
+                <tbody>
+                    @foreach (var task in Model.TaskList)
+                    {
+                        <tr>
+                            <td>@task.Name <span class="badge badge-info">@task.Status</span></td>
+                            <td>
+                                <a asp-action="AddSubTask" asp-controller="ProjectTask" asp-route-taskId="@task.TaskId">
+                                <span class="">+</span></a>
+                            </td>
+                        </tr>
+                    }
+                </tbody>
+            </table>
+        }
+    </div>
+</div>
