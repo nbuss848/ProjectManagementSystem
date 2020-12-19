@@ -3,9 +3,12 @@ using System.Collections.Generic;
 using System.Linq;
 using System.Threading.Tasks;
 using AutoMapper;
+using MediatR;
 using Microsoft.AspNetCore.Mvc;
 using Microsoft.AspNetCore.Mvc.Rendering;
 using Microsoft.EntityFrameworkCore;
+using Project.Application.Common.Interfaces;
+using Project.Application.Common.Projects.Commands;
 using Project.Infrastructure.Persistence;
 using Project.Web.Models;
 
@@ -15,11 +18,13 @@ namespace Project.Web.Controllers
     {
         private readonly ApplicationDbContext _context;
         private readonly IMapper _mapper;
+        private readonly IMediator _mediator;
 
-        public ProjectController(ApplicationDbContext context, IMapper automapper)
+        public ProjectController(ApplicationDbContext context, IMapper automapper, IMediator mediator)
         {
             _context = context;
             _mapper = automapper;
+            _mediator = mediator;
         }
 
         public IActionResult Index()
@@ -32,6 +37,15 @@ namespace Project.Web.Controllers
             };
                        
             return View(modelview);
+        }
+
+        public IActionResult ViewProject(int ProjectId)
+        {            
+            var result = _mediator.Send(new GetProjectByIdRequestModel() { ProjectId = ProjectId });
+
+            var viewModel =_mapper.Map<ProjectViewModel>(result);
+
+            return View(viewModel);
         }
 
         public IActionResult Create()
@@ -50,21 +64,9 @@ namespace Project.Web.Controllers
         [HttpPost]
         public async Task<IActionResult> AddProject(ProjectCreateModel model)
         {
-            var project = new Domain.Entities.Project()
-            {
-                ProjectId = 0,
-                CreatedDate = model.CreatedDate,
-                Description = model.Description,
-                Name = model.Name,
-                Size = model.Size,
-                Priority = model.Priority.ToString(),
-                Classification = model.Classification,
-                DueDate = model.DueDate,
-                ProjectImage = model.ProjectImage
-            };
-
-            await _context.AddAsync(project);
-            await _context.SaveChangesAsync();
+            var map = _mapper.Map<CreateProjectRequestModel>(model);
+            
+            var response = _mediator.Send(map);
 
             return RedirectToAction("Index", "Project");
         }
@@ -74,7 +76,8 @@ namespace Project.Web.Controllers
     {
         public MappingProfile()
         {
-            CreateMap<Domain.Entities.Project, ProjectViewModel>();            
+            CreateMap<Domain.Entities.Project, ProjectViewModel>();        
+            CreateMap<ProjectCreateModel, CreateProjectRequestModel>();
         }
     }
 }

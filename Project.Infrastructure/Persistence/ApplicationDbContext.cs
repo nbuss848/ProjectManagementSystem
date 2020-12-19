@@ -26,12 +26,31 @@ namespace Project.Infrastructure.Persistence
             modelBuilder.Entity<Domain.Entities.Status>().ToTable("Status");
             modelBuilder.Entity<Domain.Entities.Task>().ToTable("Task");
             modelBuilder.Entity<Domain.Entities.SubTask>().ToTable("SubTask");
-
         }
 
-        public Task<int> SaveChangesAsync(CancellationToken cancellationToken)
+        public async Task<int> SaveChangesAsync(CancellationToken cancellationToken)
         {
-            throw new NotImplementedException();
+            //foreach (Microsoft.EntityFrameworkCore.ChangeTracking.EntityEntry<AuditableEntity> entry in ChangeTracker.Entries<AuditableEntity>())
+            //{
+            //    switch (entry.State)
+            //    {
+            //        case EntityState.Added:
+            //            entry.Entity.CreatedBy = _currentUserService.UserId;
+            //            entry.Entity.Created = _dateTime.Now;
+            //            break;
+
+            //        case EntityState.Modified:
+            //            entry.Entity.LastModifiedBy = _currentUserService.UserId;
+            //            entry.Entity.LastModified = _dateTime.Now;
+            //            break;
+            //    }
+            //}
+
+            int result = await base.SaveChangesAsync(cancellationToken);
+
+            //await DispatchEvents(cancellationToken);
+
+            return result;
         }
     }
 }
