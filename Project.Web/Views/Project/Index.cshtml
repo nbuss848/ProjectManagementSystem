@@ -16,14 +16,16 @@
     @foreach (var project in Model.ProjectViewModels)
     {
         <div class="col-md-6 col-sm-12 text-center">
-            <div class="card" style="width: 18rem;">
+            <div class="card">
                 @*<img class="card-img-top" src="..." alt="Card image cap">*@
                 <div class="card-body">
                     <h5 class="card-title">@project.Name</h5>
                     <p class="card-text">@project.Description</p>
                     <p class="card-text">Number Of Tasks: @project.NumberOfTasks</p>
-                    <a asp-controller="ProjectTask" asp-action="AddTask" asp-route-projectId="@project.ProjectId" class="btn btn-primary">Add Task</a>
-                    <a asp-controller="ProjectTask" asp-action="Index" asp-route-projectId="@project.ProjectId" class="btn btn-secondary">View Tasks</a>
+                    <a asp-controller="ProjectTask" asp-action="AddTask" asp-route-projectId="@project.ProjectId" 
+                       class="btn btn-primary">Add Task</a>
+                    <a asp-controller="ProjectTask" asp-action="Index" asp-route-projectId="@project.ProjectId" 
+                       class="btn btn-secondary">View Tasks</a>
                 </div>
             </div>
         </div>
