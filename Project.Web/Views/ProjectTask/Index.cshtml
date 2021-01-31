@@ -37,7 +37,10 @@
                     @foreach (var task in Model.TaskList)
                     {
                         <tr>
-                            <td>@task.Name <span class="badge badge-info">@task.Status</span></td>
+                            <td>
+                                <a asp-action="SubTaskIndex" asp-controller="ProjectTask" asp-route-taskId="@task.TaskId">@task.Name</a> 
+                                <span class="badge badge-info">@task.Status</span>
+                            </td>
                             <td>
                                 <a asp-action="AddSubTask" asp-controller="ProjectTask" asp-route-taskId="@task.TaskId">
                                 <span class="">+</span></a>

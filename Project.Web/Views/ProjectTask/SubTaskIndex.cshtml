@@ -1,0 +1,37 @@
+﻿@model Project.Web.Models.SubTasks.SubTaskIndexViewModel
+
+<h1>
+    @Model.ProjectName
+</h1>
+
+<h4>
+    Current Task: @Model.Task
+</h4>
+
+<table class="table table-responsive">
+    <thead>
+
+        <tr>
+            <th>Name</th>
+            <th>Description</th>
+            <th>Status</th>
+        </tr>
+    </thead>
+    <tbody>
+
+        @foreach (var item in Model.Subtasks)
+        {
+            <tr>
+                <td>
+                    @item.Name
+                </td>
+                <td>
+                    @item.Description
+                </td>
+                <td>
+                    @item.Status
+                </td>
+            </tr>
+        }
+    </tbody>
+</table>

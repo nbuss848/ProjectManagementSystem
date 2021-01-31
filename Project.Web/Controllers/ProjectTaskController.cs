@@ -56,15 +56,35 @@ namespace Project.Web.Controllers
 
         public IActionResult AddSubTask(int taskId)
         {
-           // var task = _context.Tasks.Where(x => x.TaskId == taskId).FirstOrDefault();
-
             var newSubTask = new SubTaskCreateViewModel()
             {
                 TaskId = taskId
             };
 
-            return View("CreateSubTask", newSubTask);
+            return View("AddSubTask", newSubTask);
         }
+
+        public IActionResult SubTaskIndex(int taskId)
+        {
+            var view = new SubTaskIndexViewModel();
+            var task = _context.Tasks.Where(x => x.TaskId == taskId).FirstOrDefault();
+
+            var project = _context.Projects.Where(x => x.Tasks.Contains(task)).FirstOrDefault();
+
+            view.ProjectName = project.Name;
+            view.Subtasks = _context.SubTasks.Where(x => x.Task.TaskId == taskId).Select(x=>
+                    new SubtaskListingViewModel()
+                    {
+                        Description = x.Description,
+                        Name = x.Name,
+                        Status = x.Status.Name
+                    }
+                );
+            view.Task = task.Name;
+
+            return View(view);
+        }
+
         [HttpPost]
         public async Task<IActionResult> AddNewSubTask(SubTaskCreateViewModel model)
         {
