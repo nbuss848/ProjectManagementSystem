@@ -3,6 +3,7 @@ using System.Collections.Generic;
 using System.Linq;
 using System.Threading.Tasks;
 using AutoMapper;
+using FluentValidation.Results;
 using MediatR;
 using Microsoft.AspNetCore.Mvc;
 using Microsoft.AspNetCore.Mvc.Rendering;
@@ -48,27 +49,35 @@ namespace Project.Web.Controllers
             return View(viewModel);
         }
 
-        public IActionResult Create()
+        public IActionResult Create(ValidationResult errors = null)
         {
             var status = new SelectList(_context.Statuses.OrderBy(x => x.StatusId).Select(x=>x.Name));
             
             var createView = new ProjectCreateModel() 
             { 
                 StatusList = status, 
-                CreatedDate=DateTime.Now 
+                CreatedDate = DateTime.Now,
+                Errors = errors
             };
 
-            return View(createView);
+            return View("Create", createView);
         }
 
         [HttpPost]
         public async Task<IActionResult> AddProject(ProjectCreateModel model)
         {
             var map = _mapper.Map<CreateProjectRequestModel>(model);
-            
-            var response = _mediator.Send(map);
 
-            return RedirectToAction("Index", "Project");
+            var response = await _mediator.Send(map);
+
+            if (response.Errors != null)
+            {
+                return Create(response.Errors);
+            }
+            else 
+            { 
+                return RedirectToAction("Index", "Project");
+            }
         }
     }
 

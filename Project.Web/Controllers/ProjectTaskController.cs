@@ -2,6 +2,7 @@
 using System.Collections.Generic;
 using System.Linq;
 using System.Threading.Tasks;
+using MediatR;
 using Microsoft.AspNetCore.Mvc;
 using Microsoft.EntityFrameworkCore;
 using Project.Infrastructure.Persistence;
@@ -13,6 +14,7 @@ namespace Project.Web.Controllers
     public class ProjectTaskController : Controller
     {
         private readonly ApplicationDbContext _context;
+        private readonly IMediator _mediatR;
         public ProjectTaskController(ApplicationDbContext context)
         {
             _context = context;
@@ -94,11 +96,13 @@ namespace Project.Web.Controllers
                 FrequencyStartDate = model.FrequencyStartDate,
                 ReminderDate = model.ReminderDate,
                 Size = model.Size,
-                Project = currentProject
+                Project = currentProject,
+                Status = _context.Statuses.Where(x => x.Name.ToLower() == "open").FirstOrDefault()
             };
 
             await _context.AddAsync(project);
             await _context.SaveChangesAsync();
+
 
             return RedirectToAction("Index", "ProjectTask", new { model.ProjectId });
         }

@@ -4,6 +4,7 @@ using System.Linq;
 using System.Reflection;
 using System.Threading.Tasks;
 using AutoMapper;
+using FluentValidation.AspNetCore;
 using MediatR;
 using Microsoft.AspNetCore.Builder;
 using Microsoft.AspNetCore.Hosting;
@@ -15,6 +16,7 @@ using Microsoft.Extensions.Hosting;
 using Project.Application.Common.Interfaces;
 using Project.Application.Common.Projects.Commands.CreateProject;
 using Project.Application.Common.Projects.Commands.GetProject;
+using Project.Application.Common.Validation;
 using Project.Infrastructure.Persistence;
 
 namespace Project.Web
@@ -42,9 +44,13 @@ namespace Project.Web
 
             services.AddScoped<IApplicationDbContext>(provider => provider.GetService<ApplicationDbContext>());
 
+
             var assembly = AppDomain.CurrentDomain.Load("Project.Application");
 
+            
+
             services.AddMediatR(assembly);
+            services.AddMvc().AddFluentValidation(cfg => { cfg.RegisterValidatorsFromAssemblyContaining<ProjectValidation>(); });
         }
 
         // This method gets called by the runtime. Use this method to configure the HTTP request pipeline.
