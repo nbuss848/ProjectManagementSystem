@@ -11,6 +11,7 @@ namespace Project.Application.Common.Validation
         public ProjectValidation()
         {
             RuleFor(x => x.Size).GreaterThan(0);
+            RuleFor(x => x.Status).NotEmpty();
         }
     }
 }

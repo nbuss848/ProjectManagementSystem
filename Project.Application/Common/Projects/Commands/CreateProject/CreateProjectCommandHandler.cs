@@ -3,6 +3,7 @@ using Project.Application.Common.Interfaces;
 using Project.Application.Common.Validation;
 using System;
 using System.Collections.Generic;
+using System.Linq;
 using System.Text;
 using System.Threading;
 using System.Threading.Tasks;
@@ -39,7 +40,8 @@ namespace Project.Application.Common.Projects.Commands.CreateProject
                     Priority = request.Priority,
                     Classification = request.Classification,
                     DueDate = request.DueDate,
-                    ProjectImage = request.ProjectImage
+                    ProjectImage = request.ProjectImage,
+                    Status = _context.Statuses.Where(x => x.Name.ToLower() == request.Status).FirstOrDefault()
                 };
 
                 result = new CreateProjectResponseModel()

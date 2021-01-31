@@ -7,6 +7,13 @@
 
 <h1>Create</h1>
 
+<div class="">
+    @foreach (var error in Model.Errors.Errors)
+    {
+        <p class="control-label text-danger">@error.ErrorMessage</p>
+    }
+</div>
+
 <h4>ProjectCreateModel</h4>
 <hr />
 <div class="row">

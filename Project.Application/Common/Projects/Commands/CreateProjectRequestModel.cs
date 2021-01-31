@@ -13,6 +13,7 @@ namespace Project.Application.Common.Projects.Commands
         public DateTime? FrequencyStartDate { get; set; }
         public DateTime? ReminderDate { get; set; }
         public string Priority { get; set; }
+        public string Status { get; set; }
         public string Classification { get; internal set; }
         public DateTime? DueDate { get; internal set; }
         public string ProjectImage { get; internal set; }

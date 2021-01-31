@@ -1,4 +1,5 @@
-﻿using Microsoft.AspNetCore.Mvc.Rendering;
+﻿using FluentValidation.Results;
+using Microsoft.AspNetCore.Mvc.Rendering;
 using Project.Domain.Enums;
 using System;
 using System.Collections.Generic;
@@ -19,6 +20,8 @@ namespace Project.Web.Models
         public DateTime? DueDate { get; set; }
 
         public string Status { get; set; }
+        
         public SelectList StatusList { get; set; }
+        public ValidationResult Errors { get; internal set; }
     }
 }
