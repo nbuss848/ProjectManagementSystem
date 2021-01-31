@@ -66,7 +66,7 @@ namespace Project.Web.Controllers
         {
             var map = _mapper.Map<CreateProjectRequestModel>(model);
             
-            var response = _mediator.Send(map);
+            var response = await _mediator.Send(map);
 
             return RedirectToAction("Index", "Project");
         }
