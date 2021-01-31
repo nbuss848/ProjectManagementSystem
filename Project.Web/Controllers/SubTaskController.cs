@@ -22,7 +22,7 @@ namespace Project.Web.Controllers
             return View();
         }
 
-        public IActionResult Create(int projectId, int taskId)
+        public IActionResult Create(int taskId)
         {
             var subtask = new SubtaskListingViewModel();
 
