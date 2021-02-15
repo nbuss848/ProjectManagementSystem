@@ -48,7 +48,8 @@ namespace Project.Web.Controllers
             var newTask = new ProjectTaskCreateViewModel()
             {
                 ProjectId = projectId,
-                TaskId = 0                
+                TaskId = 0, 
+                Size = 4                
             };
 
             return View("CreateProjectTask", newTask);
@@ -58,7 +59,8 @@ namespace Project.Web.Controllers
         {
             var newSubTask = new SubTaskCreateViewModel()
             {
-                TaskId = taskId
+                TaskId = taskId,
+                Size = 1
             };
 
             return View("AddSubTask", newSubTask);
@@ -77,7 +79,9 @@ namespace Project.Web.Controllers
                     {
                         Description = x.Description,
                         Name = x.Name,
-                        Status = x.Status.Name
+                        Status = x.Status.Name,
+                        Size = 1
+
                     }
                 );
             view.Task = task.Name;
