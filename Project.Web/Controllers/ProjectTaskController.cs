@@ -81,6 +81,7 @@ namespace Project.Web.Controllers
                         Name = x.Name,
                         Status = x.Status.Name,
                         Size = 1
+
                     }
                 );
             view.Task = task.Name;
