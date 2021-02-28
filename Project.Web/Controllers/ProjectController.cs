@@ -10,6 +10,7 @@ using Microsoft.AspNetCore.Mvc.Rendering;
 using Microsoft.EntityFrameworkCore;
 using Project.Application.Common.Interfaces;
 using Project.Application.Common.Projects.Commands;
+using Project.Application.Common.Projects.Commands.GetProject;
 using Project.Application.Common.Projects.Commands.Subtask;
 using Project.Application.Common.Projects.Queries;
 using Project.Application.Common.Queries;
@@ -42,10 +43,8 @@ namespace Project.Web.Controllers
         public IActionResult ViewProject(int ProjectId)
         {            
             var result = _mediator.Send(new GetProjectByIdRequestModel() { ProjectId = ProjectId });
-
-            var viewModel =_mapper.Map<ProjectViewModel>(result);
-
-            return View(viewModel);
+            
+            return View(result.Result);
         }
 
         public IActionResult Create(ValidationResult errors = null)
