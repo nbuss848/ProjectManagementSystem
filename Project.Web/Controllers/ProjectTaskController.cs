@@ -2,9 +2,11 @@
 using System.Collections.Generic;
 using System.Linq;
 using System.Threading.Tasks;
+using AutoMapper;
 using MediatR;
 using Microsoft.AspNetCore.Mvc;
 using Microsoft.EntityFrameworkCore;
+using Project.Application.Common.Projects.Commands.Subtask;
 using Project.Infrastructure.Persistence;
 using Project.Web.Models.ProjectTasks;
 using Project.Web.Models.SubTasks;
@@ -15,9 +17,13 @@ namespace Project.Web.Controllers
     {
         private readonly ApplicationDbContext _context;
         private readonly IMediator _mediatR;
-        public ProjectTaskController(ApplicationDbContext context)
+        private readonly IMapper _mapper;
+
+        public ProjectTaskController(ApplicationDbContext context, IMediator mediatR, IMapper mapper)
         {
             _context = context;
+            _mediatR = mediatR;
+            _mapper = mapper;
         }
 
         public IActionResult Index(int projectId)
@@ -88,18 +94,9 @@ namespace Project.Web.Controllers
         [HttpPost]
         public async Task<IActionResult> AddNewSubTask(SubTaskCreateViewModel model)
         {
-            var task = _context.Tasks.Where(x => x.TaskId == model.TaskId).FirstOrDefault();
-            var project = new Domain.Entities.SubTask()
-            {
-                Task = task,
-                Name = model.Name,
-                Description = model.Description,
-                Size = model.Size,
-                Status = _context.Statuses.Where(x => x.Name.ToLower() == "open").FirstOrDefault()
-            };
+            var command = _mapper.Map<CreateSubTaskCommand>(model);
 
-            await _context.AddAsync(project);
-            await _context.SaveChangesAsync();
+            await _mediatR.Send(command);
 
             return RedirectToAction("SubTaskIndex", "ProjectTask", new { model.TaskId });
         }

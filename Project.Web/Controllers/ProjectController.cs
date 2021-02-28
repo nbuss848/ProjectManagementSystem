@@ -10,8 +10,10 @@ using Microsoft.AspNetCore.Mvc.Rendering;
 using Microsoft.EntityFrameworkCore;
 using Project.Application.Common.Interfaces;
 using Project.Application.Common.Projects.Commands;
+using Project.Application.Common.Projects.Commands.Subtask;
 using Project.Infrastructure.Persistence;
 using Project.Web.Models;
+using Project.Web.Models.SubTasks;
 
 namespace Project.Web.Controllers
 {
@@ -87,6 +89,7 @@ namespace Project.Web.Controllers
         {
             CreateMap<Domain.Entities.Project, ProjectViewModel>();        
             CreateMap<ProjectCreateModel, CreateProjectRequestModel>();
+            CreateMap<SubTaskCreateViewModel, CreateSubTaskCommand>();
         }
     }
 }
