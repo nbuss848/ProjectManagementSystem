@@ -11,6 +11,8 @@ using Microsoft.EntityFrameworkCore;
 using Project.Application.Common.Interfaces;
 using Project.Application.Common.Projects.Commands;
 using Project.Application.Common.Projects.Commands.Subtask;
+using Project.Application.Common.Projects.Queries;
+using Project.Application.Common.Queries;
 using Project.Infrastructure.Persistence;
 using Project.Web.Models;
 using Project.Web.Models.SubTasks;
@@ -32,14 +34,9 @@ namespace Project.Web.Controllers
 
         public IActionResult Index()
         {
-            var view = _mapper.ProjectTo<ProjectViewModel>(_context.Projects);
-            
-            var modelview = new ProjectIndexViewModel() 
-            { 
-                ProjectViewModels = view                
-            };
+            var result = _mediator.Send(new GetProjectsQuery());
                        
-            return View(modelview);
+            return View(result.Result);
         }
 
         public IActionResult ViewProject(int ProjectId)

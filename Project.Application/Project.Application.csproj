@@ -16,7 +16,6 @@
 
   <ItemGroup>
     <Folder Include="Common\Projects\EventHandlers\" />
-    <Folder Include="Common\Projects\Queries\" />
   </ItemGroup>
 
 </Project>

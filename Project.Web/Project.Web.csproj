@@ -5,6 +5,11 @@
   </PropertyGroup>
 
   <ItemGroup>
+    <Compile Remove="Models\ProjectIndexViewModel.cs" />
+    <Compile Remove="Models\ProjectViewModel.cs" />
+  </ItemGroup>
+
+  <ItemGroup>
     <Content Include=".template\.template.json" />
   </ItemGroup>
 
