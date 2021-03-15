@@ -49,16 +49,10 @@ namespace Project.Web.Controllers
 
         public IActionResult Create(ValidationResult errors = null)
         {
-            var status = new SelectList(_context.Statuses.OrderBy(x => x.StatusId).Select(x=>x.Name));
-            
-            var createView = new ProjectCreateModel() 
-            { 
-                StatusList = status, 
-                CreatedDate = DateTime.Now,
-                Errors = errors
-            };
+            var result = _mediator.Send(new CreateProjectQuery());
+            ViewBag.StatusList = result.Result.Statuses;
 
-            return View("Create", createView);
+            return View("Create", result.Result);
         }
 
         [HttpPost]

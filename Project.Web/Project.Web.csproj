@@ -5,6 +5,7 @@
   </PropertyGroup>
 
   <ItemGroup>
+    <Compile Remove="Models\ProjectCreateModel.cs" />
     <Compile Remove="Models\ProjectIndexViewModel.cs" />
     <Compile Remove="Models\ProjectViewModel.cs" />
   </ItemGroup>

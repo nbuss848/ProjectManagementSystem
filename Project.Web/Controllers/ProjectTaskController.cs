@@ -62,9 +62,24 @@ namespace Project.Web.Controllers
 
         public IActionResult AddSubTask(int taskId)
         {
+            var task = _context.Tasks.Include(x=>x.Project).Where(x => x.TaskId == taskId).FirstOrDefault();
+            var tasks = _context.Tasks
+                .Include(x=>x.Status)
+                .Include(x => x.Project)
+                .Where(x => x.Project.ProjectId == task.Project.ProjectId)
+                .ToList();
+
             var newSubTask = new SubTaskCreateViewModel()
             {
-                TaskId = taskId
+                TaskId = taskId,
+                TaskName = task.Name,
+                ProjectName = task.Project.Name,
+                tasks = tasks.Select(x => new SubtaskListingViewModel()
+                {
+                    Name = x.Name,
+                    Description = x.Description,
+                    Status = x.Status.Name                    
+                })
             };
 
             return View("AddSubTask", newSubTask);
