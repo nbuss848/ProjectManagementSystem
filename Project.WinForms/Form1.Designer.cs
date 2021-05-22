@@ -1,7 +1,7 @@
 ﻿
 namespace Project.WinForms
 {
-    partial class MainForm
+    partial class Form1
     {
         /// <summary>
         /// Required designer variable.
@@ -29,32 +29,12 @@ namespace Project.WinForms
         /// </summary>
         private void InitializeComponent()
         {
-            this.flpMain = new System.Windows.Forms.FlowLayoutPanel();
-            this.SuspendLayout();
-            // 
-            // flpMain
-            // 
-            this.flpMain.AutoScroll = true;
-            this.flpMain.Location = new System.Drawing.Point(114, 12);
-            this.flpMain.Name = "flpMain";
-            this.flpMain.Size = new System.Drawing.Size(938, 426);
-            this.flpMain.TabIndex = 0;
-            // 
-            // MainForm
-            // 
-            this.AutoScaleDimensions = new System.Drawing.SizeF(7F, 15F);
+            this.components = new System.ComponentModel.Container();
             this.AutoScaleMode = System.Windows.Forms.AutoScaleMode.Font;
-            this.ClientSize = new System.Drawing.Size(1064, 450);
-            this.Controls.Add(this.flpMain);
-            this.Name = "MainForm";
-            this.Text = "Project - WinForms";
-            this.Load += new System.EventHandler(this.MainForm_Load);
-            this.ResumeLayout(false);
-
+            this.ClientSize = new System.Drawing.Size(800, 450);
+            this.Text = "Form1";
         }
 
         #endregion
-
-        private System.Windows.Forms.FlowLayoutPanel flpMain;
     }
 }
