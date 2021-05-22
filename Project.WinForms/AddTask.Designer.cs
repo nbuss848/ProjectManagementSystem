@@ -30,10 +30,10 @@ namespace Project.WinForms
         private void InitializeComponent()
         {
             this.label1 = new System.Windows.Forms.Label();
-            this.textBox1 = new System.Windows.Forms.TextBox();
-            this.textBox2 = new System.Windows.Forms.TextBox();
+            this.txTaskName = new System.Windows.Forms.TextBox();
+            this.txDescription = new System.Windows.Forms.TextBox();
             this.label2 = new System.Windows.Forms.Label();
-            this.textBox3 = new System.Windows.Forms.TextBox();
+            this.txSize = new System.Windows.Forms.TextBox();
             this.label3 = new System.Windows.Forms.Label();
             this.label4 = new System.Windows.Forms.Label();
             this.dateStartDate = new System.Windows.Forms.DateTimePicker();
@@ -52,22 +52,22 @@ namespace Project.WinForms
             this.label1.TabIndex = 0;
             this.label1.Text = "Task";
             // 
-            // textBox1
+            // txTaskName
             // 
-            this.textBox1.Font = new System.Drawing.Font("Segoe UI", 12F, System.Drawing.FontStyle.Regular, System.Drawing.GraphicsUnit.Point);
-            this.textBox1.Location = new System.Drawing.Point(12, 33);
-            this.textBox1.Name = "textBox1";
-            this.textBox1.Size = new System.Drawing.Size(202, 29);
-            this.textBox1.TabIndex = 1;
+            this.txTaskName.Font = new System.Drawing.Font("Segoe UI", 12F, System.Drawing.FontStyle.Regular, System.Drawing.GraphicsUnit.Point);
+            this.txTaskName.Location = new System.Drawing.Point(12, 33);
+            this.txTaskName.Name = "txTaskName";
+            this.txTaskName.Size = new System.Drawing.Size(202, 29);
+            this.txTaskName.TabIndex = 1;
             // 
-            // textBox2
+            // txDescription
             // 
-            this.textBox2.Font = new System.Drawing.Font("Segoe UI", 12F, System.Drawing.FontStyle.Regular, System.Drawing.GraphicsUnit.Point);
-            this.textBox2.Location = new System.Drawing.Point(12, 106);
-            this.textBox2.Multiline = true;
-            this.textBox2.Name = "textBox2";
-            this.textBox2.Size = new System.Drawing.Size(776, 82);
-            this.textBox2.TabIndex = 3;
+            this.txDescription.Font = new System.Drawing.Font("Segoe UI", 12F, System.Drawing.FontStyle.Regular, System.Drawing.GraphicsUnit.Point);
+            this.txDescription.Location = new System.Drawing.Point(12, 106);
+            this.txDescription.Multiline = true;
+            this.txDescription.Name = "txDescription";
+            this.txDescription.Size = new System.Drawing.Size(776, 82);
+            this.txDescription.TabIndex = 3;
             // 
             // label2
             // 
@@ -79,13 +79,13 @@ namespace Project.WinForms
             this.label2.TabIndex = 2;
             this.label2.Text = "Description";
             // 
-            // textBox3
+            // txSize
             // 
-            this.textBox3.Font = new System.Drawing.Font("Segoe UI", 12F, System.Drawing.FontStyle.Regular, System.Drawing.GraphicsUnit.Point);
-            this.textBox3.Location = new System.Drawing.Point(12, 225);
-            this.textBox3.Name = "textBox3";
-            this.textBox3.Size = new System.Drawing.Size(202, 29);
-            this.textBox3.TabIndex = 5;
+            this.txSize.Font = new System.Drawing.Font("Segoe UI", 12F, System.Drawing.FontStyle.Regular, System.Drawing.GraphicsUnit.Point);
+            this.txSize.Location = new System.Drawing.Point(12, 225);
+            this.txSize.Name = "txSize";
+            this.txSize.Size = new System.Drawing.Size(202, 29);
+            this.txSize.TabIndex = 5;
             // 
             // label3
             // 
@@ -154,11 +154,11 @@ namespace Project.WinForms
             this.Controls.Add(this.label5);
             this.Controls.Add(this.dateStartDate);
             this.Controls.Add(this.label4);
-            this.Controls.Add(this.textBox3);
+            this.Controls.Add(this.txSize);
             this.Controls.Add(this.label3);
-            this.Controls.Add(this.textBox2);
+            this.Controls.Add(this.txDescription);
             this.Controls.Add(this.label2);
-            this.Controls.Add(this.textBox1);
+            this.Controls.Add(this.txTaskName);
             this.Controls.Add(this.label1);
             this.Name = "AddTask";
             this.Text = "Project - Add Task";
@@ -170,10 +170,10 @@ namespace Project.WinForms
         #endregion
 
         private System.Windows.Forms.Label label1;
-        private System.Windows.Forms.TextBox textBox1;
-        private System.Windows.Forms.TextBox textBox2;
+        private System.Windows.Forms.TextBox txTaskName;
+        private System.Windows.Forms.TextBox txDescription;
         private System.Windows.Forms.Label label2;
-        private System.Windows.Forms.TextBox textBox3;
+        private System.Windows.Forms.TextBox txSize;
         private System.Windows.Forms.Label label3;
         private System.Windows.Forms.Label label4;
         private System.Windows.Forms.DateTimePicker dateStartDate;

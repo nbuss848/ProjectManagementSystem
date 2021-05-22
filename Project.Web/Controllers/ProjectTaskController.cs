@@ -119,22 +119,7 @@ namespace Project.Web.Controllers
         [HttpPost]
         public async Task<IActionResult> AddNewTask(ProjectTaskCreateViewModel model)
         {
-            var currentProject = _context.Projects.Where(x => x.ProjectId == model.ProjectId).FirstOrDefault();
-            var project = new Domain.Entities.Task()
-            {
-                TaskId = 0,
-                Name = model.Name,
-                Description = model.Description,
-                FrequencyStartDate = model.FrequencyStartDate,
-                ReminderDate = model.ReminderDate,
-                Size = model.Size,
-                Project = currentProject,
-                Status = _context.Statuses.Where(x => x.Name.ToLower() == "open").FirstOrDefault()
-            };
-
-            await _context.AddAsync(project);
-            await _context.SaveChangesAsync();
-
+            await _mediatR.Send(new CreateTaskForProjectCommand() { model = model });
 
             return RedirectToAction("Index", "ProjectTask", new { model.ProjectId });
         }

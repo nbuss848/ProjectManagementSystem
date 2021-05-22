@@ -4,7 +4,7 @@ using System.Linq;
 using System.Threading.Tasks;
 using Microsoft.AspNetCore.Mvc;
 using Project.Infrastructure.Persistence;
-using Project.Web.Models.SubTasks;
+using Project.Application.Common.ViewModels;
 
 namespace Project.Web.Controllers
 {
