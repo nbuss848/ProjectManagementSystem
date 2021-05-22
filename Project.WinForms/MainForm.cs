@@ -1,11 +1,8 @@
 ﻿using AutoMapper;
 using MediatR;
-using Project.Application.Common.Projects.Commands;
-using Project.Application.Common.Projects.Commands.Subtask;
-using Project.Application.Common.Projects.Queries;
+using Project.Application.Common.Commands;
 using Project.Application.Common.Queries;
-using Project.Web.Models;
-using Project.Web.Models.SubTasks;
+using Project.Application.Common.ViewModels;
 using System;
 using System.Collections.Generic;
 using System.ComponentModel;

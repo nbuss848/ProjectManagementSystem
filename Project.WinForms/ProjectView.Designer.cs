@@ -76,8 +76,9 @@ namespace Project.WinForms
             this.lbName.Font = new System.Drawing.Font("Segoe UI", 12F, System.Drawing.FontStyle.Regular, System.Drawing.GraphicsUnit.Point);
             this.lbName.Location = new System.Drawing.Point(156, 39);
             this.lbName.Name = "lbName";
-            this.lbName.Size = new System.Drawing.Size(0, 21);
+            this.lbName.Size = new System.Drawing.Size(114, 21);
             this.lbName.TabIndex = 3;
+            this.lbName.Text = "[Project Name]";
             // 
             // Description
             // 
@@ -85,9 +86,9 @@ namespace Project.WinForms
             this.Description.Font = new System.Drawing.Font("Segoe UI", 12F, System.Drawing.FontStyle.Regular, System.Drawing.GraphicsUnit.Point);
             this.Description.Location = new System.Drawing.Point(156, 74);
             this.Description.Name = "Description";
-            this.Description.Size = new System.Drawing.Size(120, 21);
+            this.Description.Size = new System.Drawing.Size(151, 21);
             this.Description.TabIndex = 4;
-            this.Description.Text = "placeholder text";
+            this.Description.Text = "[Project Description]";
             // 
             // NumberOfTasks
             // 
@@ -103,7 +104,7 @@ namespace Project.WinForms
             this.btAddTask.AutoEllipsis = true;
             this.btAddTask.BackColor = System.Drawing.SystemColors.ActiveCaption;
             this.btAddTask.Font = new System.Drawing.Font("Segoe UI", 12F, System.Drawing.FontStyle.Regular, System.Drawing.GraphicsUnit.Point);
-            this.btAddTask.Location = new System.Drawing.Point(480, 145);
+            this.btAddTask.Location = new System.Drawing.Point(458, 145);
             this.btAddTask.Name = "btAddTask";
             this.btAddTask.Size = new System.Drawing.Size(92, 33);
             this.btAddTask.TabIndex = 6;
@@ -116,11 +117,11 @@ namespace Project.WinForms
             this.btViewTask.AutoEllipsis = true;
             this.btViewTask.BackColor = System.Drawing.Color.White;
             this.btViewTask.Font = new System.Drawing.Font("Segoe UI", 12F, System.Drawing.FontStyle.Regular, System.Drawing.GraphicsUnit.Point);
-            this.btViewTask.Location = new System.Drawing.Point(611, 145);
+            this.btViewTask.Location = new System.Drawing.Point(598, 145);
             this.btViewTask.Name = "btViewTask";
-            this.btViewTask.Size = new System.Drawing.Size(92, 33);
+            this.btViewTask.Size = new System.Drawing.Size(105, 33);
             this.btViewTask.TabIndex = 7;
-            this.btViewTask.Text = "View Task";
+            this.btViewTask.Text = "View Tasks";
             this.btViewTask.UseVisualStyleBackColor = false;
             this.btViewTask.Click += new System.EventHandler(this.btViewTask_Click);
             // 

@@ -1,5 +1,4 @@
-﻿using Project.Application.Common.Projects.Commands;
-using Project.Application.Common.Projects.Commands.GetProject;
+﻿using Project.Application.Common.Commands;
 using System;
 using System.Collections.Generic;
 using System.Text;

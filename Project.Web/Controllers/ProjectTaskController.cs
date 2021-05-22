@@ -6,10 +6,10 @@ using AutoMapper;
 using MediatR;
 using Microsoft.AspNetCore.Mvc;
 using Microsoft.EntityFrameworkCore;
-using Project.Application.Common.Projects.Commands.Subtask;
+using Project.Application.Common.Commands;
 using Project.Infrastructure.Persistence;
-using Project.Web.Models.ProjectTasks;
-using Project.Web.Models.SubTasks;
+using Project.Application.Common.ViewModels;
+
 
 namespace Project.Web.Controllers
 {

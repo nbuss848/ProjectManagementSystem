@@ -3,6 +3,7 @@ using MediatR;
 using Microsoft.EntityFrameworkCore;
 using Project.Application.Common.Interfaces;
 using Project.Application.Common.Queries;
+using Project.Application.Common.ViewModels;
 using System;
 using System.Collections.Generic;
 using System.Linq;
@@ -10,7 +11,7 @@ using System.Text;
 using System.Threading;
 using System.Threading.Tasks;
 
-namespace Project.Application.Common.Projects.Queries
+namespace Project.Application.Common.Queries
 {
     public class GetProjectsQuery : IRequest<ProjectIndexViewModel>
     {

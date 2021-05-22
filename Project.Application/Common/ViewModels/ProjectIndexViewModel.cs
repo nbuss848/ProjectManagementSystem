@@ -3,7 +3,7 @@ using System.Collections.Generic;
 using System.Linq;
 using System.Threading.Tasks;
 
-namespace Project.Application.Common.Queries
+namespace Project.Application.Common.ViewModels
 {
     public class ProjectIndexViewModel
     {

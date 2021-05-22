@@ -1,7 +1,7 @@
 ﻿using MediatR;
 using System;
 
-namespace Project.Application.Common.Projects.Commands
+namespace Project.Application.Common.Commands
 {
     public class CreateProjectRequestModel : IRequest<CreateProjectResponseModel>
     {

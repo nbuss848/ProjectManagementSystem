@@ -9,14 +9,10 @@ using Microsoft.AspNetCore.Mvc;
 using Microsoft.AspNetCore.Mvc.Rendering;
 using Microsoft.EntityFrameworkCore;
 using Project.Application.Common.Interfaces;
-using Project.Application.Common.Projects.Commands;
-using Project.Application.Common.Projects.Commands.GetProject;
-using Project.Application.Common.Projects.Commands.Subtask;
-using Project.Application.Common.Projects.Queries;
+using Project.Application.Common.Commands;
 using Project.Application.Common.Queries;
 using Project.Infrastructure.Persistence;
-using Project.Web.Models;
-using Project.Web.Models.SubTasks;
+using Project.Application.Common.ViewModels;
 
 namespace Project.Web.Controllers
 {

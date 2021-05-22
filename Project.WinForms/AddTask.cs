@@ -10,11 +10,19 @@ using System.Windows.Forms;
 
 namespace Project.WinForms
 {
-    public partial class Form1 : Form
+
+   // public Project MyProperty { get; set; }
+    public partial class AddTask : Form
     {
-        public Form1()
+
+        public AddTask()
         {
             InitializeComponent();
+        }
+
+        private void btAddTask_Click(object sender, EventArgs e)
+        {
+
         }
     }
 }

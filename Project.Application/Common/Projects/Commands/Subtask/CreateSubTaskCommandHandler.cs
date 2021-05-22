@@ -7,7 +7,7 @@ using System.Text;
 using System.Threading;
 using System.Threading.Tasks;
 
-namespace Project.Application.Common.Projects.Commands.Subtask
+namespace Project.Application.Common.Commands
 {
     public class CreateSubTaskCommand : IRequest<int>
     {

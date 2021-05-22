@@ -1,6 +1,7 @@
 ﻿using MediatR;
 using Project.Application.Common.Interfaces;
 using Project.Application.Common.Queries;
+using Project.Application.Common.ViewModels;
 using System;
 using System.Collections.Generic;
 using System.Linq;
@@ -8,7 +9,7 @@ using System.Text;
 using System.Threading;
 using System.Threading.Tasks;
 
-namespace Project.Application.Common.Projects.Commands.GetProject
+namespace Project.Application.Common.Commands
 {
     public class GetProjectByIdRequestModel : IRequest<ProjectViewModel>
     {
