@@ -7,6 +7,7 @@ using Project.Application.Common.Interfaces;
 using Project.Infrastructure.Identity;
 using Project.Infrastructure.Persistence;
 using Project.Web;
+using Project.WinForms.Interfaces;
 using System;
 using System.Collections.Generic;
 using System.Configuration;
@@ -58,6 +59,9 @@ namespace Project.WinForms
                 .ConfigureServices((hostContext, services) =>
                 {
                     services.AddSingleton<MainForm>();
+                    services.AddSingleton<frmViewTasks>();
+                    services.AddSingleton<AddTask>();
+                    services.AddSingleton<ProjectViewListing>();
                     services.AddMediatR(typeof(Application.Common.Queries.CreateProjectQuery).GetTypeInfo().Assembly);
                     services.AddAutoMapper(Assembly.GetExecutingAssembly());
                     services.AddDbContext<ApplicationDbContext>(opts =>

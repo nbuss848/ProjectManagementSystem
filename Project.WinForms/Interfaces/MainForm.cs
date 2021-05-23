@@ -18,11 +18,13 @@ namespace Project.WinForms
     public partial class MainForm : Form
     {
         private readonly IMediator _mediator;
-        public MainForm(IMediator mediator)
+        private readonly IServiceProvider _provider;
+        public MainForm(IMediator mediator, IServiceProvider provider)
         {
-            _mediator = mediator;
-
             InitializeComponent();
+
+            _mediator = mediator;
+            _provider = provider;
         }
 
         private void MainForm_Load(object sender, EventArgs e)
@@ -30,7 +32,7 @@ namespace Project.WinForms
             var projects = _mediator.Send(new GetProjectsQuery());
             foreach (var project in projects.Result.ProjectViewModels)
             {
-                var item = new ProjectViewListing();
+                var item = new ProjectViewListing(_provider);
                 item.BindVM(project);
 
                 flpMain.Controls.Add(item);

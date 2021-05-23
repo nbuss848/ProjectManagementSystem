@@ -9,7 +9,7 @@ using Microsoft.EntityFrameworkCore;
 using Project.Application.Common.Commands;
 using Project.Infrastructure.Persistence;
 using Project.Application.Common.ViewModels;
-
+using Project.Application.Common.Queries;
 
 namespace Project.Web.Controllers
 {
@@ -28,25 +28,9 @@ namespace Project.Web.Controllers
 
         public IActionResult Index(int projectId)
         {
-            Domain.Entities.Project project = _context.Projects.Include(x => x.Tasks).ThenInclude(x=>x.Status)
-                .Where(x => x.ProjectId == projectId).FirstOrDefault();
+            var viewmodel = _mediatR.Send(new GetProjectTasksByProjectIdQuery(projectId));
 
-            var viewmodel = new ProjectTaskIndexViewModel()
-            { 
-                Name = project.Name,
-                Description = project.Description,
-                TaskList = project.Tasks.Select(x=> new ProjectTaskListingModel()
-                {
-                    TaskId = x.TaskId,
-                    ProjectId = projectId,
-                    Description = x.Description,
-                    Name = x.Name,
-                    Status = x.Status.Name
-                })
-            };
-
-
-            return View(viewmodel);
+            return View(viewmodel.Result);
         }
 
         public IActionResult AddTask(int projectId)
