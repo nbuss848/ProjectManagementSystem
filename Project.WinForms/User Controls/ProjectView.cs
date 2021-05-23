@@ -52,11 +52,11 @@ namespace Project.WinForms
         }
 
         private void btViewTask_Click(object sender, EventArgs e)
-        {
+        {         
             var main = _services.GetRequiredService<frmViewTasks>();
             main.ProjectId = VM.ProjectId;
 
-            main.Show();
+            main.ShowDialog(this);            
         }
     }
 }
