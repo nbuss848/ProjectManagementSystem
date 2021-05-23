@@ -1,5 +1,5 @@
 ﻿
-namespace Project.WinForms
+namespace Project.WinForms.Interfaces
 {
     partial class AddTask
     {
@@ -109,16 +109,18 @@ namespace Project.WinForms
             // 
             // dateStartDate
             // 
+            this.dateStartDate.Font = new System.Drawing.Font("Segoe UI", 12F, System.Drawing.FontStyle.Regular, System.Drawing.GraphicsUnit.Point);
             this.dateStartDate.Location = new System.Drawing.Point(14, 301);
             this.dateStartDate.Name = "dateStartDate";
-            this.dateStartDate.Size = new System.Drawing.Size(200, 23);
+            this.dateStartDate.Size = new System.Drawing.Size(279, 29);
             this.dateStartDate.TabIndex = 7;
             // 
             // dateReminder
             // 
+            this.dateReminder.Font = new System.Drawing.Font("Segoe UI", 12F, System.Drawing.FontStyle.Regular, System.Drawing.GraphicsUnit.Point);
             this.dateReminder.Location = new System.Drawing.Point(16, 367);
             this.dateReminder.Name = "dateReminder";
-            this.dateReminder.Size = new System.Drawing.Size(200, 23);
+            this.dateReminder.Size = new System.Drawing.Size(277, 29);
             this.dateReminder.TabIndex = 9;
             // 
             // label5
@@ -162,6 +164,7 @@ namespace Project.WinForms
             this.Controls.Add(this.label1);
             this.Name = "AddTask";
             this.Text = "Project - Add Task";
+            this.Load += new System.EventHandler(this.AddTask_Load);
             this.ResumeLayout(false);
             this.PerformLayout();
 

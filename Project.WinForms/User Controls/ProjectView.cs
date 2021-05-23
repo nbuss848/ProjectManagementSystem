@@ -27,7 +27,6 @@ namespace Project.WinForms
         {
             VM = vm;
             lbName.Text = vm.Name;
-            lbProjectId.Text = vm.ProjectId.ToString();
             Description.Text = vm.Description;
             NumberOfTasks.Text = vm.NumberOfTasks.ToString();
             this.Refresh();

@@ -11,8 +11,8 @@ using System.Text;
 using System.Threading.Tasks;
 using System.Windows.Forms;
 
-namespace Project.WinForms
-{   
+namespace Project.WinForms.Interfaces
+{
     public partial class AddTask : Form
     {
         public int ProjectId { get; set; }
@@ -30,18 +30,23 @@ namespace Project.WinForms
 
         private void BindModel()
         {
+            _model.TaskId = 0;
+            _model.ProjectId = ProjectId;
             _model.Description = txDescription.Text;
             _model.FrequencyStartDate = DateTime.Parse(dateStartDate.Text);
             _model.ReminderDate = DateTime.Parse(dateReminder.Text);
             _model.Size = Convert.ToInt32(txSize.Text);
-            _model.TaskId = 0;
-            _model.ProjectId = ProjectId;
         }
 
         private void btAddTask_Click(object sender, EventArgs e)
         {
             BindModel();
             _mediator.Send(new CreateTaskForProjectCommand() { model = _model });
+        }
+
+        private void AddTask_Load(object sender, EventArgs e)
+        {
+
         }
     }
 }

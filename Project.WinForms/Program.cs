@@ -2,7 +2,9 @@ using MediatR;
 using Microsoft.EntityFrameworkCore;
 using Microsoft.Extensions.Configuration;
 using Microsoft.Extensions.DependencyInjection;
+using Microsoft.Extensions.Hosting;
 using Project.Application.Common.Interfaces;
+using Project.Infrastructure.Identity;
 using Project.Infrastructure.Persistence;
 using Project.Web;
 using System;
@@ -28,15 +30,21 @@ namespace Project.WinForms
             System.Windows.Forms.Application.EnableVisualStyles();
             System.Windows.Forms.Application.SetCompatibleTextRenderingDefault(false);
 
-            var services = new ServiceCollection();
             var builder = new ConfigurationBuilder()
-             .SetBasePath(Directory.GetCurrentDirectory())
-             .AddJsonFile("appsettings.json", optional: true, reloadOnChange: true);
+              .SetBasePath(Directory.GetCurrentDirectory())
+              .AddJsonFile("appsettings.json", optional: true, reloadOnChange: true);
 
-            var configuration = builder.Build();
+            var config = builder.Build();
+            //ServiceProvider(config);
+            IHostConfiguration(config);
+        }
 
+        private static void ServiceProvider(IConfiguration configuration)
+        {
+            var services = new ServiceCollection();
+      
             ConfigureServices(services, configuration);
-                    
+
             using (ServiceProvider serviceProvider = services.BuildServiceProvider())
             {
                 var form1 = serviceProvider.GetRequiredService<MainForm>();
@@ -44,12 +52,47 @@ namespace Project.WinForms
             }
         }
 
+        private static void IHostConfiguration(IConfiguration configuration)
+        {
+            var builder = new HostBuilder()
+                .ConfigureServices((hostContext, services) =>
+                {
+                    services.AddSingleton<MainForm>();
+                    services.AddMediatR(typeof(Application.Common.Queries.CreateProjectQuery).GetTypeInfo().Assembly);
+                    services.AddAutoMapper(Assembly.GetExecutingAssembly());
+                    services.AddDbContext<ApplicationDbContext>(opts =>
+                    {
+                        opts.EnableDetailedErrors();
+                        opts.UseNpgsql(configuration.GetConnectionString("Default"));
+                    });
+                    //services.AddScoped<ICurrentUserService, IdentityService>();
+                    services.AddScoped<IApplicationDbContext>(provider => provider.GetService<ApplicationDbContext>());
+                });
+
+            var host = builder.Build();
+
+            using (var scope = host.Services.CreateScope())
+            {
+                var services = scope.ServiceProvider;
+                try
+                {
+                    var main = services.GetRequiredService<MainForm>();
+                    System.Windows.Forms.Application.Run(main);
+                }
+                catch (Exception)
+                {
+
+                    throw;
+                }
+            }             
+        }
+
         private static void ConfigureServices(ServiceCollection services, IConfiguration configuration)
         {
             services.AddScoped<MainForm>();
             //var assembly = AppDomain.CurrentDomain.Load("Project.Application");
             //services.AddMediatR(assembly);
-            services.AddMediatR(typeof(Project.Application.Common.Projects.Queries.CreateProjectQuery).GetTypeInfo().Assembly);
+            services.AddMediatR(typeof(Application.Common.Queries.CreateProjectQuery).GetTypeInfo().Assembly);
             services.AddAutoMapper(Assembly.GetExecutingAssembly());
             services.AddDbContext<ApplicationDbContext>(opts => {
                 opts.EnableDetailedErrors();

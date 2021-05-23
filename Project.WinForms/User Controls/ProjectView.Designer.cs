@@ -37,7 +37,6 @@ namespace Project.WinForms
             this.NumberOfTasks = new System.Windows.Forms.Label();
             this.btAddTask = new System.Windows.Forms.Button();
             this.btViewTask = new System.Windows.Forms.Button();
-            this.lbProjectId = new System.Windows.Forms.Label();
             this.SuspendLayout();
             // 
             // label1
@@ -125,20 +124,10 @@ namespace Project.WinForms
             this.btViewTask.UseVisualStyleBackColor = false;
             this.btViewTask.Click += new System.EventHandler(this.btViewTask_Click);
             // 
-            // lbProjectId
-            // 
-            this.lbProjectId.AutoSize = true;
-            this.lbProjectId.Font = new System.Drawing.Font("Segoe UI", 12F, System.Drawing.FontStyle.Regular, System.Drawing.GraphicsUnit.Point);
-            this.lbProjectId.Location = new System.Drawing.Point(156, 151);
-            this.lbProjectId.Name = "lbProjectId";
-            this.lbProjectId.Size = new System.Drawing.Size(0, 21);
-            this.lbProjectId.TabIndex = 8;
-            // 
             // ProjectViewListing
             // 
             this.AutoScaleDimensions = new System.Drawing.SizeF(7F, 15F);
             this.AutoScaleMode = System.Windows.Forms.AutoScaleMode.Font;
-            this.Controls.Add(this.lbProjectId);
             this.Controls.Add(this.btViewTask);
             this.Controls.Add(this.btAddTask);
             this.Controls.Add(this.NumberOfTasks);
@@ -166,6 +155,5 @@ namespace Project.WinForms
         private System.Windows.Forms.Label lbName;
         private System.Windows.Forms.Button btAddTask;
         private System.Windows.Forms.Button btViewTask;
-        private System.Windows.Forms.Label lbProjectId;
     }
 }

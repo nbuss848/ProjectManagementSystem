@@ -27,20 +27,14 @@ namespace Project.WinForms
 
         private void MainForm_Load(object sender, EventArgs e)
         {
-
-            ProjectViewListing[] items = new ProjectViewListing[10];
-
             var projects = _mediator.Send(new GetProjectsQuery());
             foreach (var project in projects.Result.ProjectViewModels)
             {
-                items[0] = new ProjectViewListing();
-                items[0].BindVM(project);
+                var item = new ProjectViewListing();
+                item.BindVM(project);
 
-                flpMain.Controls.Add(items[0]);
+                flpMain.Controls.Add(item);
             }
-
-            //dgvProjects.DataSource = projects.Result.ProjectViewModels;
-            //dgvProjects.Refresh();
         }
 
         public class MappingProfile : Profile
