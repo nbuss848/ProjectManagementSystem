@@ -39,7 +39,6 @@ namespace Project.Web.Controllers
                 })
             };
 
-
             return View(viewmodel);
         }
 

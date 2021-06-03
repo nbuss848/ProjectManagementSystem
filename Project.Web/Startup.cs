@@ -43,11 +43,7 @@ namespace Project.Web
             });
 
             services.AddScoped<IApplicationDbContext>(provider => provider.GetService<ApplicationDbContext>());
-
-
             var assembly = AppDomain.CurrentDomain.Load("Project.Application");
-
-            
 
             services.AddMediatR(assembly);
             services.AddMvc().AddFluentValidation(cfg => { cfg.RegisterValidatorsFromAssemblyContaining<ProjectValidation>(); });
