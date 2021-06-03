@@ -8,7 +8,7 @@ using System.Text;
 using System.Threading;
 using System.Threading.Tasks;
 
-namespace Project.Application.Common.Projects.Commands.CreateProject
+namespace Project.Application.Common.Commands
 {
     public class CreateProjectCommandHandler : IRequestHandler<CreateProjectRequestModel, CreateProjectResponseModel>
     {

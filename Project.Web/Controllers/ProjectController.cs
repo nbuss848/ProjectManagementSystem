@@ -9,9 +9,10 @@ using Microsoft.AspNetCore.Mvc;
 using Microsoft.AspNetCore.Mvc.Rendering;
 using Microsoft.EntityFrameworkCore;
 using Project.Application.Common.Interfaces;
-using Project.Application.Common.Projects.Commands;
+using Project.Application.Common.Commands;
+using Project.Application.Common.Queries;
 using Project.Infrastructure.Persistence;
-using Project.Web.Models;
+using Project.Application.Common.ViewModels;
 
 namespace Project.Web.Controllers
 {
@@ -30,37 +31,24 @@ namespace Project.Web.Controllers
 
         public IActionResult Index()
         {
-            var view = _mapper.ProjectTo<ProjectViewModel>(_context.Projects);
-            
-            var modelview = new ProjectIndexViewModel() 
-            { 
-                ProjectViewModels = view                
-            };
+            var result = _mediator.Send(new GetProjectsQuery());
                        
-            return View(modelview);
+            return View(result.Result);
         }
 
         public IActionResult ViewProject(int ProjectId)
         {            
             var result = _mediator.Send(new GetProjectByIdRequestModel() { ProjectId = ProjectId });
-
-            var viewModel =_mapper.Map<ProjectViewModel>(result);
-
-            return View(viewModel);
+            
+            return View(result.Result);
         }
 
         public IActionResult Create(ValidationResult errors = null)
         {
-            var status = new SelectList(_context.Statuses.OrderBy(x => x.StatusId).Select(x=>x.Name));
-            
-            var createView = new ProjectCreateModel() 
-            { 
-                StatusList = status, 
-                CreatedDate = DateTime.Now,
-                Errors = errors
-            };
+            var result = _mediator.Send(new CreateProjectQuery());
+            ViewBag.StatusList = result.Result.Statuses;
 
-            return View("Create", createView);
+            return View("Create", result.Result);
         }
 
         [HttpPost]
@@ -87,6 +75,7 @@ namespace Project.Web.Controllers
         {
             CreateMap<Domain.Entities.Project, ProjectViewModel>();        
             CreateMap<ProjectCreateModel, CreateProjectRequestModel>();
+            CreateMap<SubTaskCreateViewModel, CreateSubTaskCommand>();
         }
     }
 }

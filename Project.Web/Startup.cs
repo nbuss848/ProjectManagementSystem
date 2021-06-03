@@ -14,8 +14,7 @@ using Microsoft.Extensions.Configuration;
 using Microsoft.Extensions.DependencyInjection;
 using Microsoft.Extensions.Hosting;
 using Project.Application.Common.Interfaces;
-using Project.Application.Common.Projects.Commands.CreateProject;
-using Project.Application.Common.Projects.Commands.GetProject;
+using Project.Application.Common.Commands;
 using Project.Application.Common.Validation;
 using Project.Infrastructure.Persistence;
 
@@ -43,8 +42,9 @@ namespace Project.Web
             });
 
             services.AddScoped<IApplicationDbContext>(provider => provider.GetService<ApplicationDbContext>());
-            var assembly = AppDomain.CurrentDomain.Load("Project.Application");
 
+            var assembly = AppDomain.CurrentDomain.Load("Project.Application");
+            
             services.AddMediatR(assembly);
             services.AddMvc().AddFluentValidation(cfg => { cfg.RegisterValidatorsFromAssemblyContaining<ProjectValidation>(); });
         }

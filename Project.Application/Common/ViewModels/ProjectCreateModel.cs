@@ -1,12 +1,12 @@
 ﻿using FluentValidation.Results;
-using Microsoft.AspNetCore.Mvc.Rendering;
+using Project.Domain.Entities;
 using Project.Domain.Enums;
 using System;
 using System.Collections.Generic;
 using System.Linq;
 using System.Threading.Tasks;
 
-namespace Project.Web.Models
+namespace Project.Application.Common.ViewModels
 {
     public class ProjectCreateModel
     {
@@ -21,7 +21,8 @@ namespace Project.Web.Models
 
         public string Status { get; set; }
         
-        public SelectList StatusList { get; set; }
+        //public SelectList StatusList { get; set; }
+        public List<string> Statuses { get; set; }
         public ValidationResult Errors { get; internal set; }
     }
 }

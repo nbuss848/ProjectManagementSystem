@@ -2,12 +2,14 @@
 using System.Collections.Generic;
 using System.Linq;
 using System.Threading.Tasks;
+using AutoMapper;
 using MediatR;
 using Microsoft.AspNetCore.Mvc;
 using Microsoft.EntityFrameworkCore;
+using Project.Application.Common.Commands;
 using Project.Infrastructure.Persistence;
-using Project.Web.Models.ProjectTasks;
-using Project.Web.Models.SubTasks;
+using Project.Application.Common.ViewModels;
+using Project.Application.Common.Queries;
 
 namespace Project.Web.Controllers
 {
@@ -15,31 +17,20 @@ namespace Project.Web.Controllers
     {
         private readonly ApplicationDbContext _context;
         private readonly IMediator _mediatR;
-        public ProjectTaskController(ApplicationDbContext context)
+        private readonly IMapper _mapper;
+
+        public ProjectTaskController(ApplicationDbContext context, IMediator mediatR, IMapper mapper)
         {
             _context = context;
+            _mediatR = mediatR;
+            _mapper = mapper;
         }
 
         public IActionResult Index(int projectId)
         {
-            Domain.Entities.Project project = _context.Projects.Include(x => x.Tasks).ThenInclude(x=>x.Status)
-                .Where(x => x.ProjectId == projectId).FirstOrDefault();
+            var viewmodel = _mediatR.Send(new GetProjectTasksByProjectIdQuery(projectId));
 
-            var viewmodel = new ProjectTaskIndexViewModel()
-            { 
-                Name = project.Name,
-                Description = project.Description,
-                TaskList = project.Tasks.Select(x=> new ProjectTaskListingModel()
-                {
-                    TaskId = x.TaskId,
-                    ProjectId = projectId,
-                    Description = x.Description,
-                    Name = x.Name,
-                    Status = x.Status.Name
-                })
-            };
-
-            return View(viewmodel);
+            return View(viewmodel.Result);
         }
 
         public IActionResult AddTask(int projectId)
@@ -55,9 +46,24 @@ namespace Project.Web.Controllers
 
         public IActionResult AddSubTask(int taskId)
         {
+            var task = _context.Tasks.Include(x=>x.Project).Where(x => x.TaskId == taskId).FirstOrDefault();
+            var tasks = _context.Tasks
+                .Include(x=>x.Status)
+                .Include(x => x.Project)
+                .Where(x => x.Project.ProjectId == task.Project.ProjectId)
+                .ToList();
+
             var newSubTask = new SubTaskCreateViewModel()
             {
-                TaskId = taskId
+                TaskId = taskId,
+                TaskName = task.Name,
+                ProjectName = task.Project.Name,
+                tasks = tasks.Select(x => new SubtaskListingViewModel()
+                {
+                    Name = x.Name,
+                    Description = x.Description,
+                    Status = x.Status.Name                    
+                })
             };
 
             return View("AddSubTask", newSubTask);
@@ -87,18 +93,9 @@ namespace Project.Web.Controllers
         [HttpPost]
         public async Task<IActionResult> AddNewSubTask(SubTaskCreateViewModel model)
         {
-            var task = _context.Tasks.Where(x => x.TaskId == model.TaskId).FirstOrDefault();
-            var project = new Domain.Entities.SubTask()
-            {
-                Task = task,
-                Name = model.Name,
-                Description = model.Description,
-                Size = model.Size,
-                Status = _context.Statuses.Where(x => x.Name.ToLower() == "open").FirstOrDefault()
-            };
+            var command = _mapper.Map<CreateSubTaskCommand>(model);
 
-            await _context.AddAsync(project);
-            await _context.SaveChangesAsync();
+            await _mediatR.Send(command);
 
             return RedirectToAction("SubTaskIndex", "ProjectTask", new { model.TaskId });
         }
@@ -106,22 +103,7 @@ namespace Project.Web.Controllers
         [HttpPost]
         public async Task<IActionResult> AddNewTask(ProjectTaskCreateViewModel model)
         {
-            var currentProject = _context.Projects.Where(x => x.ProjectId == model.ProjectId).FirstOrDefault();
-            var project = new Domain.Entities.Task()
-            {
-                TaskId = 0,
-                Name = model.Name,
-                Description = model.Description,
-                FrequencyStartDate = model.FrequencyStartDate,
-                ReminderDate = model.ReminderDate,
-                Size = model.Size,
-                Project = currentProject,
-                Status = _context.Statuses.Where(x => x.Name.ToLower() == "open").FirstOrDefault()
-            };
-
-            await _context.AddAsync(project);
-            await _context.SaveChangesAsync();
-
+            await _mediatR.Send(new CreateTaskForProjectCommand() { model = model });
 
             return RedirectToAction("Index", "ProjectTask", new { model.ProjectId });
         }

@@ -1,4 +1,4 @@
-﻿namespace Project.Web.Models.ProjectTasks
+﻿namespace Project.Application.Common.ViewModels
 {
     public class ProjectTaskListingModel
     {

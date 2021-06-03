@@ -16,5 +16,6 @@ namespace Project.Application.Common.Interfaces
         DbSet<SubTask> SubTasks { get; set; }
 
         Task<int> SaveChangesAsync(CancellationToken cancellationToken);
+      
     }
 }

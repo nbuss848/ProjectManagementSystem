@@ -10,9 +10,11 @@ using System.Threading.Tasks;
 
 namespace Project.Infrastructure.Identity
 {
-    public class IdentityService : IIdentityService
+    public class IdentityService : IIdentityService, ICurrentUserService
     {
         private readonly UserManager<ApplicationUser> _userManager;
+
+        public string UserId { get; set; }
 
         public IdentityService(UserManager<ApplicationUser> userManager)
         {
