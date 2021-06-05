@@ -22,9 +22,9 @@ Project("{2150E333-8FDC-42A3-9474-1A3956D46DE8}") = "Reference", "Reference", "{
 		Clean Architecture Diagram.png = Clean Architecture Diagram.png
 	EndProjectSection
 EndProject
-Project("{9A19103F-16F7-4668-BE54-9A1E7A4F7556}") = "Project.WinForms", "Project.WinForms\Project.WinForms.csproj", "{C7D08005-DF48-4C89-9AC2-01924C3CC718}"
+Project("{9A19103F-16F7-4668-BE54-9A1E7A4F7556}") = "Project.UI.WinForms", "Project.WinForms\Project.UI.WinForms.csproj", "{C7D08005-DF48-4C89-9AC2-01924C3CC718}"
 EndProject
-Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "Project.UI.CW", "Project.UI.Console\Project.UI.CW.csproj", "{6CE6CE18-445F-45B7-9264-A30614175DF2}"
+Project("{9A19103F-16F7-4668-BE54-9A1E7A4F7556}") = "Project.UI.CW", "Project.UI.Console\Project.UI.CW.csproj", "{6CE6CE18-445F-45B7-9264-A30614175DF2}"
 EndProject
 Global
 	GlobalSection(SolutionConfigurationPlatforms) = preSolution

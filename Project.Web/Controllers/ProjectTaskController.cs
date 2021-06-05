@@ -69,23 +69,10 @@ namespace Project.Web.Controllers
             return View("AddSubTask", newSubTask);
         }
 
+        [HttpGet]
         public IActionResult SubTaskIndex(int taskId)
         {
-            var view = new SubTaskIndexViewModel();
-            var task = _context.Tasks.Where(x => x.TaskId == taskId).FirstOrDefault();
-
-            var project = _context.Projects.Where(x => x.Tasks.Contains(task)).FirstOrDefault();
-
-            view.ProjectName = project.Name;
-            view.Subtasks = _context.SubTasks.Where(x => x.Task.TaskId == taskId).Select(x=>
-                    new SubtaskListingViewModel()
-                    {
-                        Description = x.Description,
-                        Name = x.Name,
-                        Status = x.Status.Name
-                    }
-                );
-            view.Task = task.Name;
+            SubTaskIndexViewModel view = _mediatR.Send(new ViewSubTaskQuery() { TaskId = taskId }).Result;
 
             return View(view);
         }

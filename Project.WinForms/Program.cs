@@ -6,7 +6,6 @@ using Microsoft.Extensions.Hosting;
 using Project.Application.Common.Interfaces;
 using Project.Infrastructure.Identity;
 using Project.Infrastructure.Persistence;
-using Project.Web;
 using Project.WinForms.Interfaces;
 using System;
 using System.Collections.Generic;
