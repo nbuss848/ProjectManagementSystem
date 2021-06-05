@@ -3,6 +3,7 @@ using Microsoft.EntityFrameworkCore;
 using Microsoft.Extensions.Configuration;
 using Microsoft.Extensions.DependencyInjection;
 using Microsoft.Extensions.Hosting;
+using Microsoft.Extensions.Logging;
 using Project.Application.Common.Interfaces;
 using Project.Infrastructure.Identity;
 using Project.Infrastructure.Persistence;
@@ -64,12 +65,13 @@ namespace Project.WinForms
                     services.AddSingleton<ProjectViewListing>();
                     services.AddMediatR(typeof(Application.Common.Queries.CreateProjectQuery).GetTypeInfo().Assembly);
                     services.AddAutoMapper(Assembly.GetExecutingAssembly());
+                    services.AddLogging(configure => configure.AddConsole());
                     services.AddDbContext<ApplicationDbContext>(opts =>
                     {
                         opts.EnableDetailedErrors();
                         opts.UseNpgsql(configuration.GetConnectionString("Default"));
                     });
-                    //services.AddScoped<ICurrentUserService, IdentityService>();
+                    services.AddScoped<ICurrentUserService, IdentityService>();
                     services.AddScoped<IApplicationDbContext>(provider => provider.GetService<ApplicationDbContext>());
                 });
 
@@ -82,6 +84,7 @@ namespace Project.WinForms
                 {
                     var main = services.GetRequiredService<MainForm>();
                     System.Windows.Forms.Application.Run(main);
+                    Console.WriteLine("Success");
                 }
                 catch (Exception)
                 {
