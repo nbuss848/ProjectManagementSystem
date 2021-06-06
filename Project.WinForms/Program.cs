@@ -63,7 +63,7 @@ namespace Project.WinForms
                     services.AddSingleton<AddTask>();
                     services.AddSingleton<ProjectViewListing>();
                     services.AddMediatR(typeof(Application.Common.Queries.CreateProjectQuery).GetTypeInfo().Assembly);
-                    services.AddAutoMapper(Assembly.GetExecutingAssembly());
+                    services.AddAutoMapper(typeof(Application.Common.Queries.CreateProjectQuery).GetTypeInfo().Assembly);
                     services.AddLogging(configure => configure.AddConsole());
                     services.AddDbContext<ApplicationDbContext>(opts =>
                     {

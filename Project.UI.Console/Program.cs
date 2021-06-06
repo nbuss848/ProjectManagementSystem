@@ -18,45 +18,54 @@ namespace Project.UI.CW
 {
     class Program
     {
-        private readonly IMediator _mediator;
-        public Program(IMediator mediator)
-        {
-            _mediator = mediator;
-        }
-        public class MappingProfile : Profile
-        {
-            public MappingProfile()
-            {
-                CreateMap<Domain.Entities.Project, ProjectViewModel>();
-                CreateMap<ProjectCreateModel, CreateProjectRequestModel>();
-                CreateMap<SubTaskCreateViewModel, CreateSubTaskCommand>();
-            }
-        }
         static void Main(string[] args)
         {
-
+            CreateHostBuilder(args).Build().Run();
+            //var options = host.Services.GetRequiredService<IMediator>().Value;
             //var host = CreateHostBuilder(args).Build();
             //host.Services.GetRequiredService<Program>.
 
-            var builder = new ConfigurationBuilder()
-                .SetBasePath(Directory.GetCurrentDirectory())
-                .AddJsonFile("appsettings.json", optional: true, reloadOnChange: true);
+            //var builder = new ConfigurationBuilder()
+            //    .SetBasePath(Directory.GetCurrentDirectory())
+            //    .AddJsonFile("appsettings.json", optional: true, reloadOnChange: true);
 
-            IConfiguration config = builder.Build();
+            //IConfiguration config = builder.Build();
 
-            var host = IHostConfiguration(config);
+            //var host = IHostConfiguration(config);
 
-            host.Services.GetRequiredService<Program>().GetProjects();
+            //host.Services.GetRequiredService<Program>().GetProjects();
         }
 
-        private void GetProjects()
-        {
-            var projects = _mediator.Send(new GetProjectsQuery());
-            foreach (var project in projects.Result.ProjectViewModels)
+        //private void GetProjects()
+        //{
+        //    var projects = _mediator.Send(new GetProjectsQuery());
+        //    foreach (var project in projects.Result.ProjectViewModels)
+        //    {
+        //        Console.WriteLine(project.Description + " " + project.NumberOfTasks);
+        //    }
+        //}
+
+        public static IHostBuilder CreateHostBuilder(string[] args) =>
+       Host.CreateDefaultBuilder(args)
+            .ConfigureAppConfiguration((hostContext, configuration) =>
             {
-                Console.WriteLine(project.Description + " " + project.NumberOfTasks);
-            }
-        }
+                configuration.AddJsonFile("appsettings.json", optional: true, reloadOnChange: true);
+            })
+           .ConfigureServices((hostContext, services) =>
+           {
+               // services.AddTransient<Program>();
+               services.AddHostedService<Worker>();
+               services.AddMediatR(typeof(Application.Common.Queries.CreateProjectQuery).GetTypeInfo().Assembly);
+               services.AddAutoMapper(typeof(Application.Common.Mappings.MappingProfile).GetTypeInfo().Assembly);
+               //services.AddLogging(configure => configure.AddConsole());
+               services.AddDbContext<ApplicationDbContext>(opts =>
+               {
+                   opts.EnableDetailedErrors();
+                   opts.UseNpgsql(hostContext.Configuration.GetConnectionString("Default"));
+               });
+               services.AddScoped<ICurrentUserService, IdentityService>();
+               services.AddScoped<IApplicationDbContext>(provider => provider.GetService<ApplicationDbContext>());
+           });
 
         private static IHost IHostConfiguration(IConfiguration configuration)
         {

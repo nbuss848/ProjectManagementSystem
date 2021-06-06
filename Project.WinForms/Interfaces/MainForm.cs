@@ -38,16 +38,5 @@ namespace Project.WinForms
                 flpMain.Controls.Add(item);
             }
         }
-
-        public class MappingProfile : Profile
-        {
-            public MappingProfile()
-            {
-                CreateMap<Domain.Entities.Project, ProjectViewModel>();
-                CreateMap<ProjectCreateModel, CreateProjectRequestModel>();
-                CreateMap<SubTaskCreateViewModel, CreateSubTaskCommand>();
-            }
-        }
-
     }
 }

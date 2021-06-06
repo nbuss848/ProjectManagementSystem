@@ -4,6 +4,8 @@ using System.Linq;
 using System.Reflection;
 using System.Text;
 using AutoMapper;
+using Project.Application.Common.Commands;
+using Project.Application.Common.ViewModels;
 
 namespace Project.Application.Common.Mappings
 {
@@ -12,6 +14,10 @@ namespace Project.Application.Common.Mappings
         public MappingProfile()
         {
             ApplyMappingsFromAssembly(Assembly.GetExecutingAssembly());
+
+            CreateMap<Domain.Entities.Project, ProjectViewModel>();
+            CreateMap<ProjectCreateModel, CreateProjectRequestModel>();
+            CreateMap<SubTaskCreateViewModel, CreateSubTaskCommand>();
         }
 
         private void ApplyMappingsFromAssembly(Assembly assembly)

@@ -1,7 +1,7 @@
 ﻿using FluentValidation.Results;
 using System;
 
-namespace Project.Application.Common.Commands
+namespace Project.Application.Common.ViewModels
 {
     public class CreateProjectResponseModel
     {

@@ -1,4 +1,4 @@
-﻿namespace Project.Application.Common.Commands
+﻿namespace Project.Application.Common.ViewModels
 {
     public class GetProjectByIdResponseModel
     {
