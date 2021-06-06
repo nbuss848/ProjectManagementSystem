@@ -1,6 +1,6 @@
-﻿using MediatR;
+﻿using FluentValidation;
+using MediatR;
 using Project.Application.Common.Interfaces;
-using Project.Application.Common.Validation;
 using Project.Application.Common.ViewModels;
 using System;
 using System.Collections.Generic;
@@ -11,7 +11,24 @@ using System.Threading.Tasks;
 
 namespace Project.Application.Common.Commands
 {
-    public class CreateProjectCommandHandler : IRequestHandler<CreateProjectRequestModel, CreateProjectResponseModel>
+    public class CreateProjectCommand : IRequest<CreateProjectResponseModel>
+    {
+        public int ProjectId { get; set; }
+        public int TaskId { get; set; }
+        public string Name { get; set; }
+        public string Description { get; set; }
+        public int Size { get; set; }
+        public DateTime? FrequencyStartDate { get; set; }
+        public DateTime? ReminderDate { get; set; }
+        public string Priority { get; set; }
+        public string Status { get; set; }
+        public string Classification { get; internal set; }
+        public DateTime? DueDate { get; internal set; }
+        public string ProjectImage { get; internal set; }
+        public DateTime? CreatedDate { get; set; }
+    }
+
+    public class CreateProjectCommandHandler : IRequestHandler<CreateProjectCommand, CreateProjectResponseModel>
     {
         private readonly IApplicationDbContext _context;
         
@@ -20,7 +37,7 @@ namespace Project.Application.Common.Commands
             _context = context;
         }
 
-        public async Task<CreateProjectResponseModel> Handle(CreateProjectRequestModel request, CancellationToken cancellationToken)
+        public async Task<CreateProjectResponseModel> Handle(CreateProjectCommand request, CancellationToken cancellationToken)
         {
             var result = new CreateProjectResponseModel()
             {
@@ -63,6 +80,15 @@ namespace Project.Application.Common.Commands
             }
 
             return result;
+        }
+    }
+
+    public class ProjectValidation : AbstractValidator<CreateProjectCommand>
+    {
+        public ProjectValidation()
+        {
+            RuleFor(x => x.Size).GreaterThan(0);
+            RuleFor(x => x.Status).NotEmpty();
         }
     }
 }

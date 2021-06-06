@@ -8,6 +8,6 @@ namespace Project.Application.Common.ViewModels
         public int ProjectId { get; set; }
         public string Description { get; set; }
         public DateTime? CreatedDate { get; set; }
-        public ValidationResult Errors { get; internal set; }
+        public ValidationResult Errors { get; set; }
     }
 }

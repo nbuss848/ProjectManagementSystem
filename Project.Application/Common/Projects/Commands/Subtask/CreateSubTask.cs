@@ -18,11 +18,11 @@ namespace Project.Application.Common.Commands
         public int Size { get; set; }
     }
 
-    public class CreateSubTaskCommandHandler : IRequestHandler<CreateSubTaskCommand, int>
+    public class CreateSubTask : IRequestHandler<CreateSubTaskCommand, int>
     {
         private readonly IApplicationDbContext _context;
 
-        public CreateSubTaskCommandHandler(IApplicationDbContext context)
+        public CreateSubTask(IApplicationDbContext context)
         {
             _context = context;
         }

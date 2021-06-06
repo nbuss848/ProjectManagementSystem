@@ -15,6 +15,7 @@
   </ItemGroup>
 
   <ItemGroup>
+    <Folder Include="Common\Projects\Commands\Tasks\" />
     <Folder Include="Common\Projects\EventHandlers\" />
   </ItemGroup>
 

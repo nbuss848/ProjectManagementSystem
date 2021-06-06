@@ -1,17 +1,11 @@
-﻿using AutoMapper;
-using MediatR;
+﻿using MediatR;
 using Microsoft.EntityFrameworkCore;
 using Microsoft.Extensions.Configuration;
 using Microsoft.Extensions.DependencyInjection;
 using Microsoft.Extensions.Hosting;
-using Project.Application.Common.Commands;
 using Project.Application.Common.Interfaces;
-using Project.Application.Common.Queries;
-using Project.Application.Common.ViewModels;
 using Project.Infrastructure.Identity;
 using Project.Infrastructure.Persistence;
-using System;
-using System.IO;
 using System.Reflection;
 
 namespace Project.UI.CW

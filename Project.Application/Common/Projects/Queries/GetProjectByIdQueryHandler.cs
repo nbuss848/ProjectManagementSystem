@@ -11,12 +11,12 @@ using System.Threading.Tasks;
 
 namespace Project.Application.Common.Commands
 {
-    public class GetProjectByIdRequestModel : IRequest<ProjectViewModel>
+    public class GetProjectByIdQuery : IRequest<ProjectViewModel>
     {
         public int ProjectId { get; set; }
     }
 
-    public class GetProjectByIdQueryHandler : IRequestHandler<GetProjectByIdRequestModel, ProjectViewModel>
+    public class GetProjectByIdQueryHandler : IRequestHandler<GetProjectByIdQuery, ProjectViewModel>
     {
         private readonly IApplicationDbContext _context;
 
@@ -25,7 +25,7 @@ namespace Project.Application.Common.Commands
             _context = context;
         }
 
-        public async Task<ProjectViewModel> Handle(GetProjectByIdRequestModel request, CancellationToken cancellationToken)
+        public async Task<ProjectViewModel> Handle(GetProjectByIdQuery request, CancellationToken cancellationToken)
         {
             var response = _context.Projects
             .Where(x => x.ProjectId == request.ProjectId)

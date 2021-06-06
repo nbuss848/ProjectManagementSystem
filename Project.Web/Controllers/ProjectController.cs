@@ -38,7 +38,7 @@ namespace Project.Web.Controllers
 
         public IActionResult ViewProject(int ProjectId)
         {            
-            var result = _mediator.Send(new GetProjectByIdRequestModel() { ProjectId = ProjectId });
+            var result = _mediator.Send(new GetProjectByIdQuery() { ProjectId = ProjectId });
             
             return View(result.Result);
         }
