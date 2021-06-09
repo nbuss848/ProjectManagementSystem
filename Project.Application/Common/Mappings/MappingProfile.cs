@@ -16,7 +16,7 @@ namespace Project.Application.Common.Mappings
             ApplyMappingsFromAssembly(Assembly.GetExecutingAssembly());
 
             CreateMap<Domain.Entities.Project, ProjectViewModel>();
-            CreateMap<ProjectCreateModel, CreateProjectRequestModel>();
+            CreateMap<ProjectCreateModel, CreateProjectCommand>();
             CreateMap<SubTaskCreateViewModel, CreateSubTaskCommand>();
         }
 
