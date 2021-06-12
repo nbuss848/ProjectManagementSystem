@@ -15,7 +15,6 @@ using Microsoft.Extensions.DependencyInjection;
 using Microsoft.Extensions.Hosting;
 using Project.Application.Common.Interfaces;
 using Project.Application.Common.Commands;
-using Project.Application.Common.Validation;
 using Project.Infrastructure.Persistence;
 
 namespace Project.Web
