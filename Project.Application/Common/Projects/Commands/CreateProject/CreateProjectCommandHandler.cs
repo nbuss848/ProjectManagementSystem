@@ -27,7 +27,6 @@ namespace Project.Application.Common.Commands
         public string ProjectImage { get; internal set; }
         public DateTime? CreatedDate { get; set; }
     }
-
     public class CreateProjectCommandHandler : IRequestHandler<CreateProjectCommand, CreateProjectResponseModel>
     {
         private readonly IApplicationDbContext _context;
@@ -44,7 +43,7 @@ namespace Project.Application.Common.Commands
              
             };
 
-            ProjectValidation validationRules = new ProjectValidation();
+            CreateProjectValidator validationRules = new CreateProjectValidator();
             var results = validationRules.Validate(request);
             if (results.IsValid)
             {
@@ -82,10 +81,9 @@ namespace Project.Application.Common.Commands
             return result;
         }
     }
-
-    public class ProjectValidation : AbstractValidator<CreateProjectCommand>
+    public class CreateProjectValidator : AbstractValidator<CreateProjectCommand>
     {
-        public ProjectValidation()
+        public CreateProjectValidator()
         {
             RuleFor(x => x.Size).GreaterThan(0);
             RuleFor(x => x.Status).NotEmpty();

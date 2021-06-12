@@ -46,7 +46,7 @@ namespace Project.Web
             var assembly = AppDomain.CurrentDomain.Load("Project.Application");
             
             services.AddMediatR(assembly);
-            services.AddMvc().AddFluentValidation(cfg => { cfg.RegisterValidatorsFromAssemblyContaining<ProjectValidation>(); });
+            services.AddMvc().AddFluentValidation(cfg => { cfg.RegisterValidatorsFromAssemblyContaining<CreateProjectValidator>(); });
         }
 
         // This method gets called by the runtime. Use this method to configure the HTTP request pipeline.

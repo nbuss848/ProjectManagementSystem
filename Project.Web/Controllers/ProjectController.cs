@@ -54,7 +54,7 @@ namespace Project.Web.Controllers
         [HttpPost]
         public async Task<IActionResult> AddProject(ProjectCreateModel model)
         {
-            var map = _mapper.Map<CreateProjectRequestModel>(model);
+            var map = _mapper.Map<CreateProjectCommand>(model);
 
             var response = await _mediator.Send(map);
 
@@ -66,16 +66,6 @@ namespace Project.Web.Controllers
             { 
                 return RedirectToAction("Index", "Project");
             }
-        }
-    }
-
-    public class MappingProfile : Profile
-    {
-        public MappingProfile()
-        {
-            CreateMap<Domain.Entities.Project, ProjectViewModel>();        
-            CreateMap<ProjectCreateModel, CreateProjectRequestModel>();
-            CreateMap<SubTaskCreateViewModel, CreateSubTaskCommand>();
         }
     }
 }
