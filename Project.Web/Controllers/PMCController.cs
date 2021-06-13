@@ -27,6 +27,5 @@ namespace Project.Web.Controllers
 
             return Ok(projects);
         }
-
     }
 }
