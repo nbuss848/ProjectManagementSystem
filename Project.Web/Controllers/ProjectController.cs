@@ -68,14 +68,4 @@ namespace Project.Web.Controllers
             }
         }
     }
-
-    public class MappingProfile : Profile
-    {
-        public MappingProfile()
-        {
-            CreateMap<Domain.Entities.Project, ProjectViewModel>();        
-            CreateMap<ProjectCreateModel, CreateProjectCommand>();
-            CreateMap<SubTaskCreateViewModel, CreateSubTaskCommand>();
-        }
-    }
 }

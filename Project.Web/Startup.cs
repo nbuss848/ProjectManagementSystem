@@ -33,11 +33,22 @@ namespace Project.Web
         {
             services.AddControllersWithViews();
 
-            services.AddAutoMapper(typeof(Startup));
-      
+            services.AddAutoMapper(typeof(Application.Common.Queries.CreateProjectQuery).GetTypeInfo().Assembly);
+
             services.AddDbContext<ApplicationDbContext>(opts => {
                 opts.EnableDetailedErrors();
                 opts.UseNpgsql(Configuration.GetConnectionString("Default"));
+            });
+            services.AddCors(options =>
+            {
+                options.AddPolicy("AllowAll",
+                    builder =>
+                    {
+                        builder
+                        .AllowAnyOrigin()
+                        .AllowAnyMethod()
+                        .AllowAnyHeader();
+                    });
             });
 
             services.AddScoped<IApplicationDbContext>(provider => provider.GetService<ApplicationDbContext>());
@@ -45,7 +56,7 @@ namespace Project.Web
             var assembly = AppDomain.CurrentDomain.Load("Project.Application");
             
             services.AddMediatR(assembly);
-            services.AddMvc().AddFluentValidation(cfg => { cfg.RegisterValidatorsFromAssemblyContaining<ProjectValidation>(); });
+            services.AddMvc().AddFluentValidation(cfg => { cfg.RegisterValidatorsFromAssemblyContaining<CreateProjectValidator>(); });
         }
 
         // This method gets called by the runtime. Use this method to configure the HTTP request pipeline.
@@ -61,6 +72,12 @@ namespace Project.Web
                 // The default HSTS value is 30 days. You may want to change this for production scenarios, see https://aka.ms/aspnetcore-hsts.
                 app.UseHsts();
             }
+
+            app.UseCors(builder => builder
+                .AllowAnyOrigin()
+                .AllowAnyMethod()
+                .AllowAnyHeader());
+
             app.UseHttpsRedirection();
             app.UseStaticFiles();
 
