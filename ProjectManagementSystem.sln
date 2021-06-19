@@ -28,6 +28,8 @@ Project("{9A19103F-16F7-4668-BE54-9A1E7A4F7556}") = "Project.UI.CW", "Project.UI
 EndProject
 Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "Project.UI.XamApp", "Project.UI.XamApp\Project.UI.XamApp.csproj", "{EA59F94F-BEC4-413D-9018-BFBA3616BA49}"
 EndProject
+Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "Project.Web.ElectronicFire", "Project.Web.ElectronicFire\Project.Web.ElectronicFire.csproj", "{4D86AD94-034C-4790-8D6D-AFDBFE713376}"
+EndProject
 Global
 	GlobalSection(SolutionConfigurationPlatforms) = preSolution
 		Debug|Any CPU = Debug|Any CPU
@@ -64,6 +66,10 @@ Global
 		{EA59F94F-BEC4-413D-9018-BFBA3616BA49}.Release|Any CPU.ActiveCfg = Release|Any CPU
 		{EA59F94F-BEC4-413D-9018-BFBA3616BA49}.Release|Any CPU.Build.0 = Release|Any CPU
 		{EA59F94F-BEC4-413D-9018-BFBA3616BA49}.Release|Any CPU.Deploy.0 = Release|Any CPU
+		{4D86AD94-034C-4790-8D6D-AFDBFE713376}.Debug|Any CPU.ActiveCfg = Debug|Any CPU
+		{4D86AD94-034C-4790-8D6D-AFDBFE713376}.Debug|Any CPU.Build.0 = Debug|Any CPU
+		{4D86AD94-034C-4790-8D6D-AFDBFE713376}.Release|Any CPU.ActiveCfg = Release|Any CPU
+		{4D86AD94-034C-4790-8D6D-AFDBFE713376}.Release|Any CPU.Build.0 = Release|Any CPU
 	EndGlobalSection
 	GlobalSection(SolutionProperties) = preSolution
 		HideSolutionNode = FALSE

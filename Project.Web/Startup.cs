@@ -73,15 +73,17 @@ namespace Project.Web
                 app.UseHsts();
             }
 
+
+        //    app.UseHttpsRedirection();
+            app.UseStaticFiles();
+
+            app.UseRouting();
+
+            // must show up after use routing
             app.UseCors(builder => builder
                 .AllowAnyOrigin()
                 .AllowAnyMethod()
                 .AllowAnyHeader());
-
-            app.UseHttpsRedirection();
-            app.UseStaticFiles();
-
-            app.UseRouting();
 
             app.UseAuthorization();
 
