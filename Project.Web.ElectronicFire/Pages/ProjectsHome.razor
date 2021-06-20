@@ -1,0 +1,42 @@
+﻿@page "/projectshome"
+
+@using Project.Web.ElectronicFire.Data
+@inject PMCService pmcService
+
+
+<div class="row">
+    <div class="text-center">
+        <div class="col-md-12">
+            <h1>Projects</h1>
+            <a class="btn btn-outline-primary">Create New Project</a>
+        </div>
+    </div>
+</div>
+<div id="projects" class="row">
+    @foreach (var project in index.ProjectViewModels)
+    {
+        <div class="col-md-6 col-sm-12 text-center py-2">
+            <div class="card">
+                @*<img class="card-img-top" src="..." alt="Card image cap">*@
+                <div class="card-body">
+                    <h5 class="card-title">@project.Name</h5>
+                    <p class="card-text">@project.Description</p>
+                    <p class="card-text">Number Of Tasks: @project.NumberOfTasks</p>
+                    <button data-id="@project.ProjectId" class="btn btn-primary">Add Task</button>
+                    <button data-id="@project.ProjectId" class="btn btn-secondary">View Tasks</button>
+                </div>
+            </div>
+        </div>
+    }
+</div>
+
+
+@code {
+    private Project.Application.Common.ViewModels.ProjectIndexViewModel index;
+
+    protected override async Task OnInitializedAsync()
+    {
+        index = await pmcService.GetProjects();
+        Console.WriteLine(index);
+    }
+}

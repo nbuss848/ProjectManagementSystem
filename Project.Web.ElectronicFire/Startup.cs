@@ -1,16 +1,22 @@
 using ElectronNET.API;
 using ElectronNET.API.Entities;
+using MediatR;
 using Microsoft.AspNetCore.Builder;
 using Microsoft.AspNetCore.Components;
 using Microsoft.AspNetCore.Hosting;
 using Microsoft.AspNetCore.HttpsPolicy;
+using Microsoft.EntityFrameworkCore;
 using Microsoft.Extensions.Configuration;
 using Microsoft.Extensions.DependencyInjection;
 using Microsoft.Extensions.Hosting;
+using Project.Application.Common.Interfaces;
+using Project.Infrastructure.Identity;
+using Project.Infrastructure.Persistence;
 using Project.Web.ElectronicFire.Data;
 using System;
 using System.Collections.Generic;
 using System.Linq;
+using System.Reflection;
 using System.Threading.Tasks;
 
 namespace Project.Web.ElectronicFire
@@ -28,9 +34,24 @@ namespace Project.Web.ElectronicFire
         // For more information on how to configure your application, visit https://go.microsoft.com/fwlink/?LinkID=398940
         public void ConfigureServices(IServiceCollection services)
         {
-            services.AddRazorPages();
             services.AddServerSideBlazor();
+
+            services.AddRazorPages();
+
+     
+            services.AddDbContext<ApplicationDbContext>(opts =>
+            {
+                opts.EnableDetailedErrors();
+                opts.UseNpgsql("Host=localhost;Port=5432;username=PMUser;password=candy123;database=ProjectManagement;");
+            });
+           // services.AddScoped<ICurrentUserService, IdentityService>();
+            services.AddScoped<IApplicationDbContext>(provider => provider.GetService<ApplicationDbContext>());
+
+            services.AddScoped<PMCService>();
             services.AddSingleton<WeatherForecastService>();
+
+            services.AddMediatR(typeof(Application.Common.Queries.GetProjectsQuery).GetTypeInfo().Assembly);
+            services.AddAutoMapper(typeof(Application.Common.Queries.GetProjectsQuery).GetTypeInfo().Assembly);
         }
 
         public async void ElectronBootstrap()
@@ -60,7 +81,7 @@ namespace Project.Web.ElectronicFire
                 app.UseHsts();
             }
 
-            app.UseHttpsRedirection();
+          //  app.UseHttpsRedirection();
             app.UseStaticFiles();
 
             app.UseRouting();

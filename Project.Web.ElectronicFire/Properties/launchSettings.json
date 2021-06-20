@@ -12,7 +12,10 @@
       "commandName": "Executable",
       "executablePath": "electronize",
       "commandLineArgs": "start",
-      "workingDirectory": "."
+      "workingDirectory": ".",
+      "environmentVariables": {
+        "ASPNETCORE_ENVIRONMENT": "Development"
+      }
     },
 
     "IIS Express": {
@@ -26,7 +29,10 @@
       "commandName": "Executable",
       "executablePath": "dotnet",
       "commandLineArgs": "electronize start",
-      "workingDirectory": "$(ProjectDir)"
+      "workingDirectory": "$(ProjectDir)",
+      "environmentVariables": {
+        "ASPNETCORE_ENVIRONMENT": "Development"
+      }
     },
     "Project.Web.ElectronicFire": {
       "commandName": "Project",

@@ -39,6 +39,7 @@ namespace Project.Web
                 opts.EnableDetailedErrors();
                 opts.UseNpgsql(Configuration.GetConnectionString("Default"));
             });
+
             services.AddCors(options =>
             {
                 options.AddPolicy("AllowAll",
@@ -52,6 +53,7 @@ namespace Project.Web
             });
 
             services.AddScoped<IApplicationDbContext>(provider => provider.GetService<ApplicationDbContext>());
+
 
             var assembly = AppDomain.CurrentDomain.Load("Project.Application");
             
