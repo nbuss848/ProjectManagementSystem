@@ -15,6 +15,7 @@ Project("{2150E333-8FDC-42A3-9474-1A3956D46DE8}") = "Solution Items", "Solution 
 	ProjectSection(SolutionItems) = preProject
 		.gitignore = .gitignore
 		.github\workflows\dotnet-core.yml = .github\workflows\dotnet-core.yml
+		readme.md = readme.md
 	EndProjectSection
 EndProject
 Project("{2150E333-8FDC-42A3-9474-1A3956D46DE8}") = "Reference", "Reference", "{122ACDEF-4536-45C4-8A57-C7E18964B19C}"
@@ -28,7 +29,7 @@ Project("{9A19103F-16F7-4668-BE54-9A1E7A4F7556}") = "Project.UI.CW", "Project.UI
 EndProject
 Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "Project.UI.XamApp", "Project.UI.XamApp\Project.UI.XamApp.csproj", "{EA59F94F-BEC4-413D-9018-BFBA3616BA49}"
 EndProject
-Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "Project.Web.ElectronicFire", "Project.Web.ElectronicFire\Project.Web.ElectronicFire.csproj", "{4D86AD94-034C-4790-8D6D-AFDBFE713376}"
+Project("{9A19103F-16F7-4668-BE54-9A1E7A4F7556}") = "Project.Web.ElectronicFire", "Project.Web.ElectronicFire\Project.Web.ElectronicFire.csproj", "{4D86AD94-034C-4790-8D6D-AFDBFE713376}"
 EndProject
 Global
 	GlobalSection(SolutionConfigurationPlatforms) = preSolution
