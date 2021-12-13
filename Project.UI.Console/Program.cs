@@ -5,7 +5,8 @@ using Microsoft.Extensions.DependencyInjection;
 using Microsoft.Extensions.Hosting;
 using Project.Application.Common.Interfaces;
 using Project.Infrastructure.Identity;
-using Project.Infrastructure.Persistence;
+using Project.Infrastructure.Models;
+
 using System.Reflection;
 
 namespace Project.UI.CW
@@ -30,13 +31,18 @@ namespace Project.UI.CW
                services.AddMediatR(typeof(Application.Common.Queries.CreateProjectQuery).GetTypeInfo().Assembly);
                services.AddAutoMapper(typeof(Application.Common.Mappings.MappingProfile).GetTypeInfo().Assembly);
                //services.AddLogging(configure => configure.AddConsole());
-               services.AddDbContext<ApplicationDbContext>(opts =>
-               {
-                   opts.EnableDetailedErrors();
-                   opts.UseNpgsql(hostContext.Configuration.GetConnectionString("Default"));
+               //services.AddDbContext<ApplicationDbContext>(opts =>
+               //{
+               //    opts.EnableDetailedErrors();
+               //    opts.UseNpgsql(hostContext.Configuration.GetConnectionString("Default"));
+               //});
+               services.AddDbContext<PMSContext>(opts =>
+               {                   
+                   opts.UseMySQL(hostContext.Configuration.GetConnectionString("MySql"));
                });
+
                services.AddScoped<ICurrentUserService, IdentityService>();
-               services.AddScoped<IApplicationDbContext>(provider => provider.GetService<ApplicationDbContext>());
+               services.AddScoped<IApplicationDbContext>(provider => provider.GetService<PMSContext>());
            });
     }
 }

@@ -22,15 +22,14 @@ namespace Project.Web.ElectronicFire.Data
 
         }
 
-        public Task<ProjectIndexViewModel> GetProjects()
+        public async Task<ProjectIndexViewModel> GetProjects()
         {
             //Console.WriteLine(_context.Projects);
-            Task<ProjectIndexViewModel> projects = _mediator.Send(new GetProjectsQuery());
+            ProjectIndexViewModel projects = await _mediator.Send(new GetProjectsQuery());
             //WebClient client = new WebClient();
             //var jsonText = client.DownloadString("http://localhost/API/pmc");
             //var json = JsonConvert.DeserializeObject<ProjectIndexViewModel>(jsonText);
-            return projects;
-            //return Task.Run(() => json);
+            return projects;            
         }
     }
 }

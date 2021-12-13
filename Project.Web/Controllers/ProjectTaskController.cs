@@ -7,19 +7,19 @@ using MediatR;
 using Microsoft.AspNetCore.Mvc;
 using Microsoft.EntityFrameworkCore;
 using Project.Application.Common.Commands;
-using Project.Infrastructure.Persistence;
 using Project.Application.Common.ViewModels;
 using Project.Application.Common.Queries;
+using Project.Infrastructure.Models;
 
 namespace Project.Web.Controllers
 {
     public class ProjectTaskController : Controller
     {
-        private readonly ApplicationDbContext _context;
+        private readonly PMSContext _context;
         private readonly IMediator _mediatR;
         private readonly IMapper _mapper;
 
-        public ProjectTaskController(ApplicationDbContext context, IMediator mediatR, IMapper mapper)
+        public ProjectTaskController(PMSContext context, IMediator mediatR, IMapper mapper)
         {
             _context = context;
             _mediatR = mediatR;
@@ -58,7 +58,7 @@ namespace Project.Web.Controllers
                 TaskId = taskId,
                 TaskName = task.Name,
                 ProjectName = task.Project.Name,
-                tasks = tasks.Select(x => new SubtaskListingViewModel()
+                tasks = tasks.Where(x=>x.ParentTaskId != null).Select(x => new SubtaskListingViewModel()
                 {
                     Name = x.Name,
                     Description = x.Description,

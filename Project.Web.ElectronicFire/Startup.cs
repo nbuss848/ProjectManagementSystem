@@ -11,7 +11,7 @@ using Microsoft.Extensions.DependencyInjection;
 using Microsoft.Extensions.Hosting;
 using Project.Application.Common.Interfaces;
 using Project.Infrastructure.Identity;
-using Project.Infrastructure.Persistence;
+using Project.Infrastructure.Models;
 using Project.Web.ElectronicFire.Data;
 using System;
 using System.Collections.Generic;
@@ -38,15 +38,20 @@ namespace Project.Web.ElectronicFire
 
             services.AddRazorPages();
 
-     
-            services.AddDbContext<ApplicationDbContext>(opts =>
-            {
-                opts.EnableDetailedErrors();
-                opts.UseNpgsql("Host=localhost;Port=5432;username=PMUser;password=candy123;database=ProjectManagement;");
-            });
-           // services.AddScoped<ICurrentUserService, IdentityService>();
-            services.AddScoped<IApplicationDbContext>(provider => provider.GetService<ApplicationDbContext>());
 
+            //services.AddDbContext<ApplicationDbContext>(opts =>
+            //{
+            //    opts.EnableDetailedErrors();
+            //    opts.UseNpgsql("Host=localhost;Port=5432;username=PMUser;password=candy123;database=ProjectManagement;");
+            //});
+            // services.AddScoped<ICurrentUserService, IdentityService>();
+            // services.AddScoped<IApplicationDbContext>(provider => provider.GetService<ApplicationDbContext>());
+            services.AddDbContext<PMSContext>(opts =>
+            {                
+                opts.UseMySQL(Configuration.GetConnectionString("MySql"));
+            });
+
+            services.AddScoped<IApplicationDbContext>(provider => provider.GetService<PMSContext>());
             services.AddScoped<PMCService>();
             services.AddSingleton<WeatherForecastService>();
 

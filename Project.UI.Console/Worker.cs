@@ -19,10 +19,10 @@ namespace Project.UI.CW
             _mediator = mediator;
         }
         protected override async Task ExecuteAsync(CancellationToken stoppingToken)
-        {            
-            IEnumerable<ProjectViewModel> projects = _mediator.Send(new GetProjectsQuery()).Result.ProjectViewModels;
+        {                        
+            ProjectIndexViewModel Index = await _mediator.Send(new GetProjectsQuery());            
 
-            foreach (var item in projects)
+            foreach (var item in Index.ProjectViewModels)
             {
                 Console.WriteLine(item.Description + " " + item.NumberOfTasks);
             }            

@@ -47,24 +47,24 @@ namespace Project.Application.Common.Commands
             var results = validationRules.Validate(request);
             if (results.IsValid)
             {
-                var project = new Domain.Entities.Project()
+                var project = new Domain.MySql.Project()
                 {
                     ProjectId = 0,
                     CreatedDate = DateTime.Now,
-                    Description = request.Description,
+                   // Description = request.Description,
                     Name = request.Name,
                     Size = request.Size,
                     Priority = request.Priority,
-                    Classification = request.Classification,
+                    //Classification = request.Classification,
                     DueDate = request.DueDate,
                     ProjectImage = request.ProjectImage,
-                    Status = _context.Statuses.Where(x => x.Name.ToLower() == request.Status).FirstOrDefault()
+                    Status = _context.Statuscodes.Where(x => x.Name.ToLower() == request.Status).FirstOrDefault()
                 };
 
                 result = new CreateProjectResponseModel()
                 {
                     CreatedDate = DateTime.Now,
-                    Description = project.Description,
+                    Description = project.Name,
                     ProjectId = project.ProjectId
                 };
 

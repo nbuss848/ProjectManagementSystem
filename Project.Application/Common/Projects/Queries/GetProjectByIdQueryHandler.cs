@@ -32,7 +32,7 @@ namespace Project.Application.Common.Commands
             .Select(x => new ProjectViewModel()
             {
                 ProjectId = x.ProjectId,
-                Description = x.Description,
+               // Description = x.Description,
                 Name = x.Name
             }).FirstOrDefault();
 

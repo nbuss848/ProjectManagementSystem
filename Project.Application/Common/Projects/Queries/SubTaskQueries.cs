@@ -16,7 +16,6 @@ namespace Project.Application.Common.Commands
 
     public class ViewSubTaskQueryHandler : RequestHandler<ViewSubTaskQuery, SubTaskIndexViewModel>
     {
-
         private readonly IApplicationDbContext _context;
         public ViewSubTaskQueryHandler(IApplicationDbContext context)
         {
@@ -31,7 +30,7 @@ namespace Project.Application.Common.Commands
             var project = _context.Projects.Where(x => x.Tasks.Contains(task)).FirstOrDefault();
 
             view.ProjectName = project.Name;
-            view.Subtasks = _context.SubTasks.Where(x => x.Task.TaskId == request.TaskId).Select(x =>
+            view.Subtasks = _context.Tasks.Where(x => x.ParentTaskId == request.TaskId).Select(x =>
                     new SubtaskListingViewModel()
                     {
                         Description = x.Description,

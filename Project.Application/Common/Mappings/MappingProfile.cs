@@ -15,7 +15,7 @@ namespace Project.Application.Common.Mappings
         {
             ApplyMappingsFromAssembly(Assembly.GetExecutingAssembly());
 
-            CreateMap<Domain.Entities.Project, ProjectViewModel>();
+            CreateMap<Domain.MySql.Project, ProjectViewModel>();
             CreateMap<ProjectCreateModel, CreateProjectCommand>();
             CreateMap<SubTaskCreateViewModel, CreateSubTaskCommand>();
         }

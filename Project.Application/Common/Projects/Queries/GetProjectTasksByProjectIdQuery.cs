@@ -29,24 +29,28 @@ namespace Project.Application.Common.Queries
         }
         public async Task<ProjectTaskIndexViewModel> Handle(GetProjectTasksByProjectIdQuery request, CancellationToken cancellationToken)
         {
-            Domain.Entities.Project project = _context.Projects
+            var viewmodel = new ProjectTaskIndexViewModel();
+            Domain.MySql.Project project = _context.Projects
                     .Include(x => x.Tasks).ThenInclude(x => x.Status)
                     .Where(x => x.ProjectId == request.ProjectId)
                     .FirstOrDefault();
 
-            var viewmodel = new ProjectTaskIndexViewModel()
+            if (project != null)
             {
-                Name = project.Name,
-                Description = project.Description,
-                TaskList = project.Tasks.Select(x => new ProjectTaskListingModel()
+                viewmodel = new ProjectTaskIndexViewModel()
                 {
-                    TaskId = x.TaskId,
-                    ProjectId = request.ProjectId,
-                    Description = x.Description,
-                    Name = x.Name,
-                    Status = x.Status.Name
-                })
-            };
+                    Name = project.Name,
+                    //Description = project.Description,
+                    TaskList = project.Tasks.Where(x=>x.ParentTaskId == null).Select(x => new ProjectTaskListingModel()
+                    {
+                        TaskId = x.TaskId,
+                        ProjectId = request.ProjectId,
+                        Description = x.Description,
+                        Name = x.Name,
+                        Status = x.Status.Name
+                    })
+                };
+            }  
 
             return viewmodel;
         }

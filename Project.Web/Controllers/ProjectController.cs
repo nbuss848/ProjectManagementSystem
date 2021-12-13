@@ -11,18 +11,18 @@ using Microsoft.EntityFrameworkCore;
 using Project.Application.Common.Interfaces;
 using Project.Application.Common.Commands;
 using Project.Application.Common.Queries;
-using Project.Infrastructure.Persistence;
 using Project.Application.Common.ViewModels;
+using Project.Infrastructure.Models;
 
 namespace Project.Web.Controllers
 {
     public class ProjectController : Controller
     {
-        private readonly ApplicationDbContext _context;
+        private readonly PMSContext _context;
         private readonly IMapper _mapper;
         private readonly IMediator _mediator;
 
-        public ProjectController(ApplicationDbContext context, IMapper automapper, IMediator mediator)
+        public ProjectController(PMSContext context, IMapper automapper, IMediator mediator)
         {
             _context = context;
             _mapper = automapper;
@@ -46,7 +46,7 @@ namespace Project.Web.Controllers
         public IActionResult Create(ValidationResult errors = null)
         {
             var result = _mediator.Send(new CreateProjectQuery());
-            ViewBag.StatusList = result.Result.Statuses;
+            ViewBag.StatusList = result.Result.Statuses.Select(x=> new SelectListItem() {Text = x, Value = x});
 
             return View("Create", result.Result);
         }

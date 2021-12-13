@@ -36,9 +36,9 @@ namespace Project.Application.Common.Queries
 
             foreach (var project in view)
             {
-                project.NumberOfTasks = _context.Tasks
-                    .Include(x=>x.Project)
-                    .Where(x => x.Project.ProjectId == project.ProjectId)
+                project.NumberOfTasks = _context.Tasks                    
+                    .Include(x => x.Project)
+                    .Where(x => x.Project.ProjectId == project.ProjectId && x.ParentTaskId == null)
                     .Count();
             }
 

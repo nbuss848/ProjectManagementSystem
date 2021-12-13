@@ -15,7 +15,7 @@ using Microsoft.Extensions.DependencyInjection;
 using Microsoft.Extensions.Hosting;
 using Project.Application.Common.Interfaces;
 using Project.Application.Common.Commands;
-using Project.Infrastructure.Persistence;
+using Project.Infrastructure.Models;
 
 namespace Project.Web
 {
@@ -35,9 +35,14 @@ namespace Project.Web
 
             services.AddAutoMapper(typeof(Application.Common.Queries.CreateProjectQuery).GetTypeInfo().Assembly);
 
-            services.AddDbContext<ApplicationDbContext>(opts => {
-                opts.EnableDetailedErrors();
-                opts.UseNpgsql(Configuration.GetConnectionString("Default"));
+            //services.AddDbContext<ApplicationDbContext>(opts => {
+            //    opts.EnableDetailedErrors();
+            //    opts.UseNpgsql(Configuration.GetConnectionString("Default"));
+            //});
+
+            services.AddDbContext<PMSContext>(ops =>
+            {
+                ops.UseMySQL(Configuration.GetConnectionString("MySql"));
             });
 
             services.AddCors(options =>
@@ -52,7 +57,9 @@ namespace Project.Web
                     });
             });
 
-            services.AddScoped<IApplicationDbContext>(provider => provider.GetService<ApplicationDbContext>());
+            //services.AddScoped<IApplicationDbContext>(provider => provider.GetService<ApplicationDbContext>());
+
+            services.AddScoped<IApplicationDbContext>(provider => provider.GetService<PMSContext>());
 
 
             var assembly = AppDomain.CurrentDomain.Load("Project.Application");

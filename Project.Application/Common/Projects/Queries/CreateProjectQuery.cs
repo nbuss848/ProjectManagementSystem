@@ -27,7 +27,7 @@ namespace Project.Application.Common.Queries
 
         public async Task<ProjectCreateModel> Handle(CreateProjectQuery request, CancellationToken cancellationToken)
         {
-            var status = _context.Statuses.OrderBy(x => x.StatusId).Select(x => x.Name);
+            var status = _context.Statuscodes.OrderBy(x => x.StatusId).Select(x => x.Name);
 
             var createView = new ProjectCreateModel()
             {

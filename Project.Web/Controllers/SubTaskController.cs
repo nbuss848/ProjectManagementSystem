@@ -3,19 +3,18 @@ using System.Collections.Generic;
 using System.Linq;
 using System.Threading.Tasks;
 using Microsoft.AspNetCore.Mvc;
-using Project.Infrastructure.Persistence;
 using Project.Application.Common.ViewModels;
 
 namespace Project.Web.Controllers
 {
     public class SubTaskController : Controller
     {
-        private readonly ApplicationDbContext _context;
+        //private readonly ApplicationDbContext _context;
 
-        public SubTaskController(ApplicationDbContext context)
-        {
-            _context = context;
-        }
+        //public SubTaskController(ApplicationDbContext context)
+        //{
+        //    _context = context;
+        //}
 
         public IActionResult Index()
         {

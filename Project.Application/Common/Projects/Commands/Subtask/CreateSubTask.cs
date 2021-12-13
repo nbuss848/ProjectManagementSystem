@@ -29,20 +29,21 @@ namespace Project.Application.Common.Commands
 
         public async Task<int> Handle(CreateSubTaskCommand request, CancellationToken cancellationToken)
         {
-            var task = _context.Tasks.Where(x => x.TaskId == request.TaskId).FirstOrDefault();
-            var project = new Domain.Entities.SubTask()
-            {
-                Task = task,
+            var projectId = _context.Tasks.Where(x => x.TaskId == request.TaskId).Select(x => x.ProjectId).FirstOrDefault();
+            Domain.MySql.Task task = new Domain.MySql.Task()
+            {                
+                ProjectId = projectId,
+                ParentTaskId = request.TaskId,
+                StatusId = _context.Statuscodes.Where(x => x.Name.ToLower() == "open").Select(x=>x.StatusId).FirstOrDefault(),
                 Name = request.Name,
                 Description = request.Description,
-                Size = request.Size,
-                Status = _context.Statuses.Where(x => x.Name.ToLower() == "open").FirstOrDefault()
+                Size = request.Size
             };
 
-            _context.SubTasks.Add(project);
+            _context.Tasks.Add(task);
             await _context.SaveChangesAsync(cancellationToken);
 
-            return project.Task.TaskId;
+            return task.TaskId;
         }
     }
 }

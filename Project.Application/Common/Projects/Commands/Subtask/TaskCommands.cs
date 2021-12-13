@@ -26,16 +26,16 @@ namespace Project.Application.Common.Commands
         public async Task<Unit> Handle(CreateTaskForProjectCommand request, CancellationToken cancellationToken)
         {
             var currentProject = _context.Projects.Where(x => x.ProjectId == request.model.ProjectId).FirstOrDefault();
-            var project = new Domain.Entities.Task()
+            var project = new Domain.MySql.Task()
             {
                 TaskId = 0,
                 Name = request.model.Name,
                 Description = request.model.Description,
-                FrequencyStartDate = request.model.FrequencyStartDate,
-                ReminderDate = request.model.ReminderDate,
-                Size = request.model.Size,
-                Project = currentProject,
-                Status = _context.Statuses.Where(x => x.Name.ToLower() == "open").FirstOrDefault()
+                ProjectId = request.model.ProjectId,
+               // FrequencyStartDate = request.model.FrequencyStartDate,
+               // ReminderDate = request.model.ReminderDate,
+                Size = request.model.Size,                
+                StatusId = _context.Statuscodes.Where(x => x.Name.ToLower() == "open").Select(x=>x.StatusId).FirstOrDefault()
             };
 
             await _context.Tasks.AddAsync(project);

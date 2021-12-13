@@ -6,7 +6,8 @@ using Microsoft.Extensions.Hosting;
 using Microsoft.Extensions.Logging;
 using Project.Application.Common.Interfaces;
 using Project.Infrastructure.Identity;
-using Project.Infrastructure.Persistence;
+using Project.Infrastructure.Models;
+
 using Project.WinForms.Interfaces;
 using System;
 using System.Collections.Generic;
@@ -65,13 +66,19 @@ namespace Project.WinForms
                     services.AddMediatR(typeof(Application.Common.Queries.CreateProjectQuery).GetTypeInfo().Assembly);
                     services.AddAutoMapper(typeof(Application.Common.Queries.CreateProjectQuery).GetTypeInfo().Assembly);
                     services.AddLogging(configure => configure.AddConsole());
-                    services.AddDbContext<ApplicationDbContext>(opts =>
-                    {
-                        opts.EnableDetailedErrors();
-                        opts.UseNpgsql(configuration.GetConnectionString("Default"));
-                    });
+                    //services.AddDbContext<ApplicationDbContext>(opts =>.
+                    //{
+                    //    opts.EnableDetailedErrors();
+                    //    opts.UseNpgsql(configuration.GetConnectionString("Default"));
+                    //});
                     services.AddScoped<ICurrentUserService, IdentityService>();
-                    services.AddScoped<IApplicationDbContext>(provider => provider.GetService<ApplicationDbContext>());
+                    services.AddDbContext<PMSContext>(opts =>
+                    {
+                        opts.UseMySQL(configuration.GetConnectionString("MySql"));
+                    });
+
+                    //services.AddScoped<IApplicationDbContext>(provider => provider.GetService<ApplicationDbContext>());
+                    services.AddScoped<IApplicationDbContext>(provider => provider.GetService<PMSContext>());
                 });
 
             var host = builder.Build();
@@ -100,13 +107,17 @@ namespace Project.WinForms
             //services.AddMediatR(assembly);
             services.AddMediatR(typeof(Application.Common.Queries.CreateProjectQuery).GetTypeInfo().Assembly);
             services.AddAutoMapper(Assembly.GetExecutingAssembly());
-            services.AddDbContext<ApplicationDbContext>(opts => {
-                opts.EnableDetailedErrors();
-                opts.UseNpgsql(configuration.GetConnectionString("Default"));
+            //services.AddDbContext<ApplicationDbContext>(opts => {
+            //    opts.EnableDetailedErrors();
+            //    opts.UseNpgsql(configuration.GetConnectionString("Default"));
+            //});
+
+            // services.AddScoped<IApplicationDbContext>(provider => provider.GetService<ApplicationDbContext>());
+            services.AddDbContext<PMSContext>(opts => {
+                opts.UseNpgsql(configuration.GetConnectionString("MySql"));
             });
 
-            services.AddScoped<IApplicationDbContext>(provider => provider.GetService<ApplicationDbContext>());
-
+            services.AddScoped<IApplicationDbContext>(provider => provider.GetService<PMSContext>());
         }
     }
 }
