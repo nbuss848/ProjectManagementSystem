@@ -32,8 +32,8 @@ namespace Project.Application.Common.Commands
                 Name = request.model.Name,
                 Description = request.model.Description,
                 ProjectId = request.model.ProjectId,
-               // FrequencyStartDate = request.model.FrequencyStartDate,
-               // ReminderDate = request.model.ReminderDate,
+                FrequencyStartDate = request.model.FrequencyStartDate,
+                ReminderDate = request.model.ReminderDate,
                 Size = request.model.Size,                
                 StatusId = _context.Statuscodes.Where(x => x.Name.ToLower() == "open").Select(x=>x.StatusId).FirstOrDefault()
             };

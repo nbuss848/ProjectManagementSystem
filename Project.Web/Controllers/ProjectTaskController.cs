@@ -10,6 +10,7 @@ using Project.Application.Common.Commands;
 using Project.Application.Common.ViewModels;
 using Project.Application.Common.Queries;
 using Project.Infrastructure.Models;
+using Project.Application.Common.Projects.Commands.Subtask;
 
 namespace Project.Web.Controllers
 {
@@ -26,6 +27,7 @@ namespace Project.Web.Controllers
             _mapper = mapper;
         }
 
+        [HttpGet]
         public IActionResult Index(int projectId)
         {
             var viewmodel = _mediatR.Send(new GetProjectTasksByProjectIdQuery(projectId));
@@ -33,6 +35,7 @@ namespace Project.Web.Controllers
             return View(viewmodel.Result);
         }
 
+        [HttpGet]
         public IActionResult AddTask(int projectId)
         {
             var newTask = new ProjectTaskCreateViewModel()
@@ -44,35 +47,20 @@ namespace Project.Web.Controllers
             return View("CreateProjectTask", newTask);
         }
 
-        public IActionResult AddSubTask(int taskId)
+        [HttpGet]
+        public async Task<IActionResult> AddSubTask(int taskId)
         {
-            var task = _context.Tasks.Include(x=>x.Project).Where(x => x.TaskId == taskId).FirstOrDefault();
-            var tasks = _context.Tasks
-                .Include(x=>x.Status)
-                .Include(x => x.Project)
-                .Where(x => x.Project.ProjectId == task.Project.ProjectId)
-                .ToList();
-
-            var newSubTask = new SubTaskCreateViewModel()
-            {
-                TaskId = taskId,
-                TaskName = task.Name,
-                ProjectName = task.Project.Name,
-                tasks = tasks.Where(x=>x.ParentTaskId != null).Select(x => new SubtaskListingViewModel()
-                {
-                    Name = x.Name,
-                    Description = x.Description,
-                    Status = x.Status.Name                    
-                })
-            };
-
-            return View("AddSubTask", newSubTask);
+            var command = new LoadCreateSubtaskCommand() { taskId = taskId };
+            var response = await _mediatR.Send(command);
+            return View("AddSubTask", response);
         }
 
         [HttpGet]
         public IActionResult SubTaskIndex(int taskId)
         {
-            SubTaskIndexViewModel view = _mediatR.Send(new ViewSubTaskQuery() { TaskId = taskId }).Result;
+            var query = new ViewSubTaskQuery() { TaskId = taskId };
+
+            SubTaskIndexViewModel view = _mediatR.Send(query).Result;
 
             return View(view);
         }
