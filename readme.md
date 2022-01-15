@@ -10,18 +10,19 @@ As well as a general scale of the task which drives the projection system.
 
 ## Goals 
 _by priority high -> low_
-- [ ] Set up clean architecture example of a real system
-- [ ] Show that one feature can be reused by multiple different front-end interfaces
+- [x] Set up clean architecture example of a real system
+- [x] Show that one feature can be reused by multiple different front-end interfaces
 - [ ] Create system that allows easy maintainence of to be done tasks.
 - [ ] Show all tasks overlapping each-other with a projected completed date based off of previous data.
 
 ## Roadmap
-- [ ] Create project and link tasks to those projects. Create tasks that can link to parent tasks.
-- [ ] Create React interface
+- [x] Create project and link tasks to those projects. Create tasks that can link to parent tasks.
+- [x] Create React interface
+- [ ] Connect React to API or directly to database
 - [ ] Create data-visualization of open and completed tasks in all projects that are created in the system. (Gantt chart?)
 
 ## Setup
-Download XAMPP (recommend version 7.X.X) and run MySql scripts to setup database (```.\_MySql Scripts```).
+Download XAMPP (recommend version 7.X.X) and run MySql scripts to setup database (```.\_MySql Scripts\pms.sql```).
 Set connection string to your localhost in each project appsettings.json file.
 *Example:* ```"MySql" = "Server=localhost;Database=PMS;uid=PMS;PWD=root"```
 Make sure to start Apache and MySql in XAMPP and you should be good to start using the app.
