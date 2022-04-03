@@ -40,6 +40,11 @@ namespace Project.Web
             //    opts.UseNpgsql(Configuration.GetConnectionString("Default"));
             //});
 
+            //services.AddDbContext<LocaldbContext>(ops =>
+            //{
+            //    ops.UseSqlServer(Configuration.GetConnectionString("Compact"));
+            //});
+
             services.AddDbContext<PMSContext>(ops =>
             {
                 ops.UseMySQL(Configuration.GetConnectionString("MySql"));

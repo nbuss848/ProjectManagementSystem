@@ -10,6 +10,6 @@ namespace Project.Application.Common.ViewModels
         public int ProjectId { get; set; }
         public string Name { get; set; }
         public string Description { get; set; }
-        public int NumberOfTasks { get; set; }
+        public int NumberOfTasks { get; set; }         
     }
 }

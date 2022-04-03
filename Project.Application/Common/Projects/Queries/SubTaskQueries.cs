@@ -34,7 +34,7 @@ namespace Project.Application.Common.Commands
                     new SubtaskListingViewModel()
                     {
                         Description = x.Description,
-                        Name = x.Name,
+                        Name = x.Name.ToUpper(),
                         Status = x.Status.Name
                     }
                 );
